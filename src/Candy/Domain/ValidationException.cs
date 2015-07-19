@@ -1,0 +1,37 @@
+﻿//
+// Copyright (c) 2015, Saritasa. All rights reserved.
+// Licensed under the BSD license. See LICENSE file in the project root for full license information.
+//
+
+namespace Candy.Domain
+{
+    using System;
+
+    /// <summary>
+    /// Validation exception.
+    /// </summary>
+    [Serializable]
+    public class ValidationException : DomainException
+    {
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        public ValidationException() : base()
+        {
+        }
+
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        public ValidationException(String message) : base(message)
+        {
+        }
+
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        public ValidationException(String message, Exception innerException) : base(message, innerException)
+        {
+        }
+    }
+}
