@@ -82,7 +82,7 @@ namespace Candy.Extensions
         /// Checks that target string is null or empty.
         /// </summary>
         /// <param name="target">Target string.</param>
-        /// <returns></returns>
+        /// <returns>True if empty. False otherwise.</returns>
         [DebuggerStepThrough]
         public static Boolean IsEmpty(this String target)
         {
@@ -90,14 +90,25 @@ namespace Candy.Extensions
         }
 
         /// <summary>
-        /// Checks that target strign is not null or empty.
+        /// Checks that target string is not null or empty.
         /// </summary>
         /// <param name="target">Target string.</param>
-        /// <returns></returns>
+        /// <returns>True if not empty. False otherwise.</returns>
         [DebuggerStepThrough]
         public static Boolean IsNotEmpty(this String target)
         {
             return IsEmpty(target) == false;
+        }
+
+        /// <summary>
+        /// Returns empty string if target string is null or string itself.
+        /// </summary>
+        /// <param name="target">Target string.</param>
+        /// <returns>Empty string if null or target string.</returns>
+        [DebuggerStepThrough]
+        public static String NullSafe(this String target)
+        {
+            return target == null ? String.Empty : target;
         }
     }
 }

@@ -105,10 +105,7 @@ namespace Candy.Helpers
         [DebuggerStepThrough]
         public static String WildcardToRegex(String pattern)
         {
-            return
-                ("^" + Regex.Escape(pattern)).
-                Replace("\\*", ".*").
-                Replace("\\?", ".") + "$";
+            return ("^" + Regex.Escape(pattern)).Replace("\\*", ".*").Replace("\\?", ".") + "$";
         }
 
         #endregion
@@ -249,7 +246,7 @@ namespace Candy.Helpers
         }
 
         /// <summary>
-        /// Tries to convert target string to Dobule. If fails returns default value.
+        /// Tries to convert target string to Double. If fails returns default value.
         /// </summary>
         [DebuggerStepThrough]
         public static Double TryParseDoubleDefault(String target, Double defaultValue)
@@ -260,7 +257,7 @@ namespace Candy.Helpers
         }
 
         /// <summary>
-        /// Tries to convert target string to Dobule. If fails returns default value.
+        /// Tries to convert target string to Double. If fails returns default value.
         /// </summary>
         [DebuggerStepThrough]
         public static Double TryParseDoubleDefault(String target, NumberStyles style, IFormatProvider provider, Double defaultValue)

@@ -17,27 +17,27 @@ namespace Candy.Extensions
     public static class EnumExtensions
     {
         /// <summary>
-		/// Gets the value of Description attribute.
-		/// </summary>
-		/// <param name="target">Enum.</param>
-		/// <returns></returns>
-		public static String GetDescription(this Enum target)
-		{
-			if (target.GetType().IsEnum == false)
-				throw new ArgumentOutOfRangeException("target", "Target is not enum");
+        /// Gets the value of Description attribute.
+        /// </summary>
+        /// <param name="target">Enum.</param>
+        /// <returns></returns>
+        public static String GetDescription(this Enum target)
+        {
+            if (target.GetType().IsEnum == false)
+                throw new ArgumentOutOfRangeException("target", "Target is not enum");
 
-			FieldInfo fieldInfo = target.GetType().GetField(target.ToString());
-			if (fieldInfo == null)
-				return null;
+            FieldInfo fieldInfo = target.GetType().GetField(target.ToString());
+            if (fieldInfo == null)
+                return null;
 #if NET4_5
-			IEnumerable<DescriptionAttribute> attributes = fieldInfo.GetCustomAttributes<DescriptionAttribute>(false);
+            IEnumerable<DescriptionAttribute> attributes = fieldInfo.GetCustomAttributes<DescriptionAttribute>(false);
 #else
             IEnumerable<DescriptionAttribute> attributes = (IEnumerable<DescriptionAttribute>)
                 fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 #endif
 
-			return attributes.Any() ? attributes.First().Description : target.ToString();
-		}
+            return attributes.Any() ? attributes.First().Description : target.ToString();
+        }
 
 #if NET3_5
         public static Boolean HasFlag(this Enum target, Enum flag)

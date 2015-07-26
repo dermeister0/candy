@@ -6,9 +6,7 @@
 namespace Candy.Common
 {
     using System;
-#if NET4_5
     using System.Threading;
-#endif
     
     /// <summary>
     /// Event helpers.
@@ -25,6 +23,7 @@ namespace Candy.Common
             var temp = Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;
+            Thread.MemoryBarrier();
 #endif
             if (temp != null)
                 temp(sender, e);

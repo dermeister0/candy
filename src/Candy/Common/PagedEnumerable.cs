@@ -20,36 +20,36 @@ namespace Candy.Common
         private readonly Int32 totalCount;
 
         /// <summary>
-        /// .ctor
-        /// </summary>
-        /// <param name="inner">Enumerable.</param>
-        /// <param name="totalCount">Total count. If below zero it will be calculated by inner.Count() call.</param>
-        public PagedEnumerable(IEnumerable<T> inner, int totalCount = -1)
-		{
-			this.inner = inner;
-			this.totalCount = totalCount > 0 ? totalCount : inner.Count();
-		}
-
-        /// <summary>
-        /// Returns enumerator.
-        /// </summary>
-        /// <returns>Enumerator.</returns>
-		public IEnumerator<T> GetEnumerator()
-		{
-			return this.inner.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-        /// <summary>
         /// Total items count.
         /// </summary>
         public Int32 TotalCount
         {
             get { return this.totalCount; }
+        }
+
+        /// <summary>
+        /// .ctor
+        /// </summary>
+        /// <param name="inner">Enumerable.</param>
+        /// <param name="totalCount">Total count. If below zero it will be calculated by inner.Count() call.</param>
+        public PagedEnumerable(IEnumerable<T> inner, int totalCount = -1)
+        {
+            this.inner = inner;
+            this.totalCount = totalCount > 0 ? totalCount : inner.Count();
+        }
+
+        /// <summary>
+        /// Returns enumerator.
+        /// </summary>
+        /// <returns>Enumerator.</returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.inner.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

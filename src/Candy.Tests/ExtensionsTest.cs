@@ -22,7 +22,7 @@ namespace Candy.Tests
         [Test]
         public void TestDictionaryDefaultValue()
         {
-            Dictionary<int, string> dict = new Dictionary<int,string>();
+            Dictionary<int, string> dict = new Dictionary<int, string>();
             dict.Add(1, "abc");
             dict.Add(2, "bca");
             Assert.That(dict.TryGetValueDefault(5, "default"), Is.EqualTo("default"));

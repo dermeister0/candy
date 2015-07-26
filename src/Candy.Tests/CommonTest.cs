@@ -19,7 +19,7 @@ namespace Candy.Tests
         private event EventHandler<EventArgs> TestEvent;
 
         [Test]
-        [ExpectedException(typeof(Common.Exception<InvalidUserException>), ExpectedMessage="test")]
+        [ExpectedException(typeof(Common.Exception<InvalidUserException>), ExpectedMessage = "test")]
         public void TestExceptionHelperCreationAndThrowing()
         {
             throw new Common.Exception<InvalidUserException>("test");

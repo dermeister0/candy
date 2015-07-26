@@ -6,6 +6,7 @@
 namespace Candy.Domain
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Logger abstraction.
@@ -16,36 +17,101 @@ namespace Candy.Domain
         /// Log fatal message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Fatal(String message);
+        /// <param name="sourceFilePath"></param>
+        void Fatal(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log fatal message with exception.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Fatal(String message, Exception exception, [CallerFilePath] string sourceFilePath = null);
 
         /// <summary>
         /// Log error message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Error(String message);
+        /// <param name="sourceFilePath"></param>
+        void Error(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log error message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Error(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
 
         /// <summary>
         /// Log warning message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Warn(String message);
+        /// <param name="sourceFilePath"></param>
+        void Warn(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log warning message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Warn(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
 
         /// <summary>
         /// Log info message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Info(String message);
+        /// <param name="sourceFilePath"></param>
+        void Info(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log info message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Info(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
 
         /// <summary>
         /// Log debug message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Debug(String message);
+        /// <param name="sourceFilePath"></param>
+        void Debug(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log debug message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Debug(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
 
         /// <summary>
         /// Log trace message.
         /// </summary>
         /// <param name="message">The message.</param>
-        void Trace(String message);
+        /// <param name="sourceFilePath"></param>
+        void Trace(String message, [CallerFilePath] String sourceFilePath = null);
+
+        /// <summary>
+        /// Log trace message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">Exception to log.</param>
+        /// <param name="sourceFilePath"></param>
+        void Trace(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
     }
+
+#if !NET4_5
+    /// Just fake implementation.
+    [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
+    public sealed class CallerFilePathAttribute : Attribute
+    {
+        public CallerFilePathAttribute()
+        {
+        }
+    }
+#endif
 }

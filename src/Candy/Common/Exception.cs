@@ -33,7 +33,7 @@ namespace Candy.Common
     [Serializable]
     public sealed class Exception<TExceptionArgs> : Exception, ISerializable where TExceptionArgs : ExceptionArgs
     {
-        private const String cargs = "Args"; // for deserialization
+        private const String CArgs = "Args"; // for deserialization
         private readonly TExceptionArgs args;
 
         /// <summary>
@@ -41,7 +41,19 @@ namespace Candy.Common
         /// </summary>
         public TExceptionArgs Args
         {
-            get { return args; }
+            get { return this.args; }
+        }
+
+        /// <summary>
+        /// Exception message.
+        /// </summary>
+        public override String Message
+        {
+            get
+            {
+                String baseMessage = base.Message;
+                return this.args == null ? baseMessage : baseMessage + " (" + this.args.Message + ")";
+            }
         }
 
         /// <summary>
@@ -69,10 +81,10 @@ namespace Candy.Common
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         private Exception(SerializationInfo info, StreamingContext context) : base(info, context)
         {
-            this.args = (TExceptionArgs)info.GetValue(cargs, typeof(TExceptionArgs));
+            this.args = (TExceptionArgs)info.GetValue(CArgs, typeof(TExceptionArgs));
         }
 
         /// <summary>
@@ -80,23 +92,11 @@ namespace Candy.Common
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags=SecurityPermissionFlag.SerializationFormatter)]
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(cargs, this.args);
+            info.AddValue(CArgs, this.args);
             base.GetObjectData(info, context);
-        }
-
-        /// <summary>
-        /// Exception message.
-        /// </summary>
-        public override String Message
-        {
-            get
-            {
-                String baseMessage = base.Message;
-                return this.args == null ? baseMessage : baseMessage + " (" + this.args.Message + ")";
-            }
         }
 
         /// <summary>

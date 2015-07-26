@@ -88,7 +88,8 @@ namespace Candy.Helpers
             {
                 subsource = source.Skip(currentPosition).Take(chunkSize);
                 hasRecords = false;
-                foreach (var item in subsource)  // actual query is here
+                // actual query is here
+                foreach (var item in subsource)
                 {
                     hasRecords = true;
                     yield return item;

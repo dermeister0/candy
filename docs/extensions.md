@@ -42,3 +42,5 @@ Console.WriteLine("The sum of {1} and {2} is {3}".FormatWith(a, b, sum));
 * `Boolean String.IsEmpty()` Returns true if string empty. Without Candy you have to write `String.IsNullOrEmpty(str)`.
 
 * `Boolean String.IsNotEmpty()` Returns true if string not empty. Without Candy you have to write `!String.IsNullOrEmpty(str)`.
+
+* `String String.NullSafe()` Returns empty string if target string is empty or string itself.

@@ -13,7 +13,7 @@ namespace Candy.Helpers
     public static class DateTimeHelpers
     {
         /// <summary>
-        /// Just checkes is this a Saturday or Sunday.
+        /// Just checks is this a Saturday or Sunday.
         /// </summary>
         /// <param name="target">DateTime to check.</param>
         /// <returns>Is holiday.</returns>

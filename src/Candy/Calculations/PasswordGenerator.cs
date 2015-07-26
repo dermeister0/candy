@@ -26,42 +26,42 @@ namespace Candy.Calculations
             /// <summary>
             /// Lower letters.
             /// </summary>
-            LowerLetters =           0x1,
+            LowerLetters = 0x1,
 
             /// <summary>
             /// Upper letters.
             /// </summary>
-            UpperLetters =          0x2,
+            UpperLetters = 0x2,
 
             /// <summary>
             /// Digits.
             /// </summary>
-            Digits =                0x4,
+            Digits = 0x4,
 
             /// <summary>
             /// Special characters except space.
             /// </summary>
-            SpecialCharacters =     0x8,
+            SpecialCharacters = 0x8,
 
             /// <summary>
             /// Space character.
             /// </summary>
-            Space =                 0x16,
+            Space = 0x16,
 
             /// <summary>
             /// Combination of LowerLetters and UpperLetters.
             /// </summary>
-            AllLetters =            LowerLetters | UpperLetters,
+            AllLetters = LowerLetters | UpperLetters,
 
             /// <summary>
             /// Combination of AllLetters and Digits.
             /// </summary>
-            AlphaNumeric =          AllLetters | Digits,
+            AlphaNumeric = AllLetters | Digits,
            
             /// <summary>
             /// Combination of all elements.
             /// </summary>
-            All =                   LowerLetters | UpperLetters | Digits | SpecialCharacters | Space,
+            All = LowerLetters | UpperLetters | Digits | SpecialCharacters | Space,
         }
 
         /// <summary>
@@ -73,22 +73,22 @@ namespace Candy.Calculations
             /// <summary>
             /// No special generation flags.
             /// </summary>
-            None =                  0x0,
+            None = 0x0,
 
             /// <summary>
             /// Exclude conflict characters.
             /// </summary>
-            ExcludeLookAlike =      0x1,
+            ExcludeLookAlike = 0x1,
 
             /// <summary>
             /// Shuffle pool characters before generation.
             /// </summary>
-            ShuffleChars =          0x2,
+            ShuffleChars = 0x2,
 
             /// <summary>
             /// Makes secure string as read only.
             /// </summary>
-            MakeReadOnly =          0x4,
+            MakeReadOnly = 0x4,
         }
 
         /// <summary>
@@ -119,47 +119,47 @@ namespace Candy.Calculations
         /// <summary>
         /// Lower case characters pool.
         /// </summary>
-        protected const String PoolLowerCase			= "abcdefghjkmnpqrstuvwxyz";
+        protected const String PoolLowerCase = "abcdefghjkmnpqrstuvwxyz";
 
         /// <summary>
         /// Lower case conflict characters pool.
         /// </summary>
-		protected const String PoolLowerCaseConflict    = "ilo";
+        protected const String PoolLowerCaseConflict = "ilo";
 
         /// <summary>
-        /// Upper case characters pool
+        /// Upper case characters pool.
         /// </summary>
-		protected const String PoolUpperCase			= "ABCDEFGHJKLMNPQRSTUVWXYZ";
+        protected const String PoolUpperCase = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 
         /// <summary>
         /// Upper case characters conflict pool.
         /// </summary>
-		protected const String PoolUpperCaseConflict    = "OI";
+        protected const String PoolUpperCaseConflict = "OI";
 
         /// <summary>
         /// Digits characters pool.
         /// </summary>
-		protected const String PoolDigits			    = "23456789";
+        protected const String PoolDigits = "23456789";
 
         /// <summary>
         /// Digits conflict characters pool.
         /// </summary>
-		protected const String PoolDigitsConflict	    = "10";
+        protected const String PoolDigitsConflict = "10";
 
         /// <summary>
         /// Special characters pool.
         /// </summary>
-        protected const String PoolSpecial              = @"~@#$%^&*()_-+=[]|\:;""'<>.?/";
+        protected const String PoolSpecial = @"~@#$%^&*()_-+=[]|\:;""'<>.?/";
 
         /// <summary>
         /// Special characters conflict pool.
         /// </summary>
-        protected const String PoolSpecialConflict      = @"`{}!,";
+        protected const String PoolSpecialConflict = @"`{}!,";
 
         /// <summary>
         /// Space character.
         /// </summary>
-        protected const String PoolSpace                = " ";
+        protected const String PoolSpace = " ";
 
         /// <summary>
         /// .ctor
@@ -187,6 +187,9 @@ namespace Candy.Calculations
             this.GeneratorFlags = generatorFlags;
         }
 
+        /// <summary>
+        /// .cctor
+        /// </summary>
         static PasswordGenerator()
         {
             Random = new Random();
@@ -264,15 +267,59 @@ namespace Candy.Calculations
         }
 
         /// <summary>
-        /// Estimate password strenght. See documentation for more details.
-        /// TODO: need to implement
+        /// Estimate password strength. See documentation for more details.
         /// </summary>
         /// <param name="password">Password to estimate.</param>
         /// <returns>Estimate score.</returns>
         public static Int32 EstimatePasswordStrength(String password)
         {
-            Int32 score = 0;
+            if (String.IsNullOrEmpty(password))
+                throw new ArgumentException("Password cannot be empty");
+
+            Int32 score = 0, uppercaseCount = 0, lowercaseCount = 0, numberCount = 0,
+                specialSymbolCount = 0, middleNumberOrSymbolCount = 0;
+
+            // number of characters
+            score += password.Length * 4;
+
+            for (int i = 0; i < password.Length; i++)
+            {
+                if (Char.IsUpper(password[i]))
+                    uppercaseCount++;
+                if (Char.IsLower(password[i]))
+                    lowercaseCount++;
+                if (Char.IsDigit(password[i]))
+                    numberCount++;
+                if (PoolSpecial.Contains(password[i].ToString()) || PoolSpecialConflict.Contains(password[i].ToString()))
+                    specialSymbolCount++;
+                if (Char.IsDigit(password[i]) && i > 0 && i + 1 < password.Length)
+                    middleNumberOrSymbolCount++;
+            }
+
+            // minimum requirements
+            var minRequirements = 0;
+            if (uppercaseCount > 0)
+                minRequirements++;
+            if (lowercaseCount > 0)
+                minRequirements++;
+            if (numberCount > 0)
+                minRequirements++;
+            if (specialSymbolCount > 0)
+                minRequirements++;
+            if (password.Length < 9 || minRequirements <= 3)
+                score = 0;
+
             return score;
+        }
+
+        /// <summary>
+        /// Get password entropy.
+        /// </summary>
+        /// <returns>Password's entropy.</returns>
+        public Double GetEntropy()
+        {
+            var pool = String.IsNullOrEmpty(this.CharactersPool) == false ? CreateCharactersPool() : this.CharactersPool.ToCharArray();
+            return Math.Log(Math.Pow(this.PasswordLength, pool.Length), 2);
         }
 
         private Char[] CreateCharactersPool()

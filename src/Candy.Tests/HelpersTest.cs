@@ -50,7 +50,7 @@ namespace Candy.Tests
         [Test]
         public void TestDictionary()
         {
-            Dictionary<int, string> dict = new Dictionary<int,string>();
+            Dictionary<int, string> dict = new Dictionary<int, string>();
             dict.Add(1, "abc");
             dict.Add(2, "bca");
             Assert.That(CandyHelpers.DictionaryHelpers.AsCommaSeparatedString(dict), Is.EqualTo("1=abc,2=bca"));

@@ -39,7 +39,9 @@ namespace Candy.Extensions
         /// <param name="keySelector">A function to extract a key from an element.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>An System.Linq.IOrderedEnumerable whose elements are sorted according to a key.</returns>
-        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector,
+        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
             SortOrder sortOrder)
         {
             return sortOrder == SortOrder.Asc ? source.OrderBy(keySelector) : source.OrderByDescending(keySelector);
@@ -55,8 +57,11 @@ namespace Candy.Extensions
         /// <param name="comparer">An System.Collections.Generic.IComparer to compare keys.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>An System.Linq.IOrderedEnumerable whose elements are sorted according to a key.</returns>
-        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector,
-            IComparer<TKey> comparer, SortOrder sortOrder)
+        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector,
+            IComparer<TKey> comparer,
+            SortOrder sortOrder)
         {
             return sortOrder == SortOrder.Asc ? source.OrderBy(keySelector, comparer) : source.OrderByDescending(keySelector, comparer);
         }

@@ -16,6 +16,11 @@ namespace Candy.Validation
     /// </summary>
     public static class Check
     {
+        /// <summary>
+        /// Is not empty check for guid. Generates ArgumentException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotEmpty(Guid argument, String argumentName)
         {
@@ -25,6 +30,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not empty check for string. Generates ArgumentException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotEmpty(String argument, String argumentName)
         {
@@ -34,6 +44,12 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not out of length check. Generates ArgumentException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="length">Maximum length.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotOutOfLength(String argument, Int32 length, String argumentName)
         {
@@ -43,8 +59,13 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not null check. Generates ArgumentNullException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
-        public static void IsNotNull(object argument, String argumentName)
+        public static void IsNotNull(Object argument, String argumentName)
         {
             if (argument == null)
             {
@@ -52,6 +73,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check for Int32. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegative(Int32 argument, String argumentName)
         {
@@ -61,6 +87,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative or zero check. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegativeOrZero(Int32 argument, String argumentName)
         {
@@ -70,6 +101,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check for Int64. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegative(Int64 argument, String argumentName)
         {
@@ -79,6 +115,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check for Int64. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegativeOrZero(Int64 argument, String argumentName)
         {
@@ -88,6 +129,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check for Single. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegative(Single argument, String argumentName)
         {
@@ -97,6 +143,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative or zero check for Single. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegativeOrZero(Single argument, String argumentName)
         {
@@ -106,6 +157,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check for Decimal. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegative(Decimal argument, String argumentName)
         {
@@ -115,6 +171,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative or zero check for Decimal. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegativeOrZero(Decimal argument, String argumentName)
         {
@@ -124,6 +185,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not in past check for DateTime. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotInPast(DateTime argument, String argumentName)
         {
@@ -133,8 +199,14 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not in past check for DateTime according to specific date. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="date">Date to compare.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
-        public static void IsNotInPast(DateTime argument, String argumentName, DateTime date)
+        public static void IsNotInPast(DateTime argument, DateTime date, String argumentName)
         {
             if (argument < date)
             {
@@ -142,6 +214,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not in future check for DateTime. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotInFuture(DateTime argument, String argumentName)
         {
@@ -151,6 +228,12 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not in future check for DateTime according to specific date. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="date">Date to compare.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotInFuture(DateTime argument, String argumentName, DateTime date)
         {
@@ -159,7 +242,12 @@ namespace Candy.Validation
                 throw new ArgumentOutOfRangeException(argumentName);
             }
         }
-
+        
+        /// <summary>
+        /// Is not negative check for TimeSpan. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegative(TimeSpan argument, String argumentName)
         {
@@ -169,6 +257,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not negative check or zero for TimeSpan. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotNegativeOrZero(TimeSpan argument, String argumentName)
         {
@@ -178,6 +271,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not empty check for collection of arguments. Generates ArgumentException.
+        /// </summary>
+        /// <param name="argument">Collection of arguments.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotEmpty<T>(ICollection<T> argument, String argumentName)
         {
@@ -189,6 +287,13 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is in range check. Generates ArgumentOutOfRangeException.
+        /// </summary>
+        /// <param name="argument">Collection of arguments.</param>
+        /// <param name="min">Minimum value.</param>
+        /// <param name="max">Maximum value.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotOutOfRange(Int32 argument, Int32 min, Int32 max, String argumentName)
         {
@@ -198,6 +303,11 @@ namespace Candy.Validation
             }
         }
 
+        /// <summary>
+        /// Is not invalid email check. Generates ArgumentException.
+        /// </summary>
+        /// <param name="argument">Email argument.</param>
+        /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void IsNotInvalidEmail(String argument, String argumentName)
         {

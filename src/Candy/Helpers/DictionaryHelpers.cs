@@ -16,7 +16,7 @@ namespace Candy.Helpers
     public static class DictionaryHelpers
     {
         /// <summary>
-        /// Converts dictionary key-value pairs to stirng. Example:
+        /// Converts dictionary key-value pairs to string. Example:
         /// Input: Key=1, Value="abc"; Key=2, Value="bca"
         /// Output: 1=abc,2=bca
         /// </summary>

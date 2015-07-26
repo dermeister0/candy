@@ -5,6 +5,10 @@ A collect of practical tools and extensions to make development easier. You can 
 
 *The project is under active development and API is a subject to change!*
 
+Go to documentation page to see more!
+
+https://candynet.readthedocs.org
+
 Installation
 ------------
 
@@ -38,6 +42,7 @@ String handy extensions to check for empty/not empty that easier to read:
 ```cs
 if (str.IsNotEmpty()) ...
 if (str.IsEmpty()) ...
+if (str.NullSafe()) ...
 ```
 
 Chunk select:

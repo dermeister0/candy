@@ -39,6 +39,9 @@
     <Compile Include="Common\PagedEnumerable.cs" />
     <Compile Include="Domain\DomainException.cs" />
     <Compile Include="Domain\ILogger.cs" />
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\ISession.cs" />
+    <Compile Include="Domain\ISessionFactory.cs" />
     <Compile Include="Domain\IUnitOfWork.cs" />
     <Compile Include="Domain\IUnitOfWorkFactory.cs" />
     <Compile Include="Domain\ValidationException.cs" />

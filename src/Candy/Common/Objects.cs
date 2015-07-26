@@ -13,7 +13,7 @@ namespace Candy.Common
     public static class Objects
     {
         /// <summary>
-        /// Swaps two variables by referencies.
+        /// Swaps two variables by references.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item1">Variable 1.</param>

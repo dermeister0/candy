@@ -8,7 +8,7 @@ namespace Candy.Domain
     using System;
 
     /// <summary>
-    /// Exception occures in domain part of application. It can be logic or validation exception.
+    /// Exception occurs in domain part of application. It can be logic or validation exception.
     /// </summary>
     [Serializable]
     public class DomainException : ApplicationException

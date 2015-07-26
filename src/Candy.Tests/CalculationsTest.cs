@@ -13,7 +13,7 @@ namespace Candy.Tests
     public class CalculationsTest
     {
         [Test]
-        public void TestSecurity()
+        public void TestSecurityHashes()
         {
             Assert.That(Calculations.Hashes.MD5("mypassword"), Is.EqualTo("34819d7beeabb9260a5c854bc85b3e44"));
             Assert.That(Calculations.Hashes.SHA1("mypassword"), Is.EqualTo("91dfd9ddb4198affc5c194cd8ce6d338fde470e2".ToUpper()));
@@ -36,6 +36,19 @@ namespace Candy.Tests
             );
             var password = passwordGenerator.Generate();
             Assert.That(password.Length, Is.EqualTo(25));
+        }
+
+        [Test]
+        public void TestPasswordStrength()
+        {
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("1111"), Is.EqualTo(0));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("2222222222"), Is.EqualTo(0));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789"), Is.EqualTo(4));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789A"), Is.EqualTo(73));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789A"), Is.EqualTo(75));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("CCCCCCCCC"), Is.EqualTo(0));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("8m6y2L2WhalkPDa"), Is.EqualTo(100));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("AA11bb00__"), Is.EqualTo(68));
         }
     }
 }
