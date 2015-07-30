@@ -180,7 +180,9 @@ namespace Candy.Calculations
         public PasswordGenerator(int passwordLength, CharacterClass characterClasses, GeneratorFlag generatorFlags) : this()
         {
             if (passwordLength < 2)
+            {
                 throw new ArgumentException("Password length should be at least 2 characters");
+            }
 
             this.PasswordLength = passwordLength;
             this.CharacterClasses = characterClasses;
@@ -203,7 +205,9 @@ namespace Candy.Calculations
         public void SetCharactersPool(String pool)
         {
             if (String.IsNullOrEmpty(pool))
+            {
                 throw new ArgumentException("Characters pool cannot be empty");
+            }
             this.CharactersPool = pool; 
         }
 
@@ -274,7 +278,9 @@ namespace Candy.Calculations
         public static Int32 EstimatePasswordStrength(String password)
         {
             if (String.IsNullOrEmpty(password))
+            {
                 throw new ArgumentException("Password cannot be empty");
+            }
 
             Int32 score = 0, uppercaseCount = 0, lowercaseCount = 0, numberCount = 0,
                 specialSymbolCount = 0, middleNumberOrSymbolCount = 0;
@@ -285,29 +291,49 @@ namespace Candy.Calculations
             for (int i = 0; i < password.Length; i++)
             {
                 if (Char.IsUpper(password[i]))
+                {
                     uppercaseCount++;
+                }
                 if (Char.IsLower(password[i]))
+                {
                     lowercaseCount++;
+                }
                 if (Char.IsDigit(password[i]))
+                {
                     numberCount++;
+                }
                 if (PoolSpecial.Contains(password[i].ToString()) || PoolSpecialConflict.Contains(password[i].ToString()))
+                {
                     specialSymbolCount++;
+                }
                 if (Char.IsDigit(password[i]) && i > 0 && i + 1 < password.Length)
+                {
                     middleNumberOrSymbolCount++;
+                }
             }
 
             // minimum requirements
             var minRequirements = 0;
             if (uppercaseCount > 0)
+            {
                 minRequirements++;
+            }
             if (lowercaseCount > 0)
+            {
                 minRequirements++;
+            }
             if (numberCount > 0)
+            {
                 minRequirements++;
+            }
             if (specialSymbolCount > 0)
+            {
                 minRequirements++;
+            }
             if (password.Length < 9 || minRequirements <= 3)
+            {
                 score = 0;
+            }
 
             return score;
         }

@@ -26,7 +26,9 @@ namespace Candy.Common
             Thread.MemoryBarrier();
 #endif
             if (temp != null)
+            {
                 temp(sender, e);
+            }
         }
     }
 }

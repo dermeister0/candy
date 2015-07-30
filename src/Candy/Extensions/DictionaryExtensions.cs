@@ -26,8 +26,8 @@ namespace Candy.Extensions
         public static TValue TryGetValueDefault<TKey, TValue>(this IDictionary<TKey, TValue> target, TKey key, TValue defaultValue)
         {
             TValue value;
-            Boolean bRet = target.TryGetValue(key, out value);
-            return bRet ? value : defaultValue;
+            Boolean success = target.TryGetValue(key, out value);
+            return success ? value : defaultValue;
         }
     }
 }

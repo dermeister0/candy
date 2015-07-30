@@ -164,8 +164,8 @@ namespace Candy.Helpers
         public static Boolean TryParseBooleanDefault(String target, Boolean defaultValue)
         {
             Boolean result;
-            var bRet = Boolean.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Boolean.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -175,8 +175,8 @@ namespace Candy.Helpers
         public static Byte TryParseByteDefault(String target, Byte defaultValue)
         {
             Byte result;
-            var bRet = Byte.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Byte.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -186,8 +186,8 @@ namespace Candy.Helpers
         public static Byte TryParseByteDefault(String target, NumberStyles style, IFormatProvider provider, Byte defaultValue)
         {
             Byte result;
-            var bRet = Byte.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Byte.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -197,8 +197,8 @@ namespace Candy.Helpers
         public static Char TryParseCharDefault(String target, Char defaultValue)
         {
             Char result;
-            var bRet = Char.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Char.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -208,8 +208,8 @@ namespace Candy.Helpers
         public static DateTime TryParseDateTimeDefault(String target, DateTime defaultValue)
         {
             DateTime result;
-            var bRet = DateTime.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = DateTime.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -219,8 +219,8 @@ namespace Candy.Helpers
         public static DateTime TryParseDateTimeDefault(String target, IFormatProvider provider, DateTimeStyles styles, DateTime defaultValue)
         {
             DateTime result;
-            var bRet = DateTime.TryParse(target, provider, styles, out result);
-            return bRet ? result : defaultValue;
+            var success = DateTime.TryParse(target, provider, styles, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -230,8 +230,8 @@ namespace Candy.Helpers
         public static Decimal TryParseDecimalDefault(String target, Decimal defaultValue)
         {
             Decimal result;
-            var bRet = Decimal.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Decimal.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -241,8 +241,8 @@ namespace Candy.Helpers
         public static Decimal TryParseDecimalDefault(String target, NumberStyles style, IFormatProvider provider, Decimal defaultValue)
         {
             Decimal result;
-            var bRet = Decimal.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Decimal.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -252,8 +252,8 @@ namespace Candy.Helpers
         public static Double TryParseDoubleDefault(String target, Double defaultValue)
         {
             Double result;
-            var bRet = Double.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Double.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -263,8 +263,8 @@ namespace Candy.Helpers
         public static Double TryParseDoubleDefault(String target, NumberStyles style, IFormatProvider provider, Double defaultValue)
         {
             Double result;
-            var bRet = Double.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Double.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -274,8 +274,8 @@ namespace Candy.Helpers
         public static Int16 TryParseInt16Default(String target, Int16 defaultValue)
         {
             Int16 result;
-            var bRet = Int16.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Int16.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -285,8 +285,8 @@ namespace Candy.Helpers
         public static Int16 TryParseInt16Default(String target, NumberStyles style, IFormatProvider provider, Int16 defaultValue)
         {
             Int16 result;
-            var bRet = Int16.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Int16.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -296,8 +296,8 @@ namespace Candy.Helpers
         public static Int32 TryParseInt32Default(String target, Int32 defaultValue)
         {
             Int32 result;
-            var bRet = Int32.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Int32.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -307,8 +307,8 @@ namespace Candy.Helpers
         public static Int32 TryParseInt64Default(String target, NumberStyles style, IFormatProvider provider, Int32 defaultValue)
         {
             Int32 result;
-            var bRet = Int32.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Int32.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -318,8 +318,8 @@ namespace Candy.Helpers
         public static Int64 TryParseInt64Default(String target, Int64 defaultValue)
         {
             Int64 result;
-            var bRet = Int64.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Int64.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -329,8 +329,8 @@ namespace Candy.Helpers
         public static Int64 TryParseInt64Default(String target, NumberStyles style, IFormatProvider provider, Int64 defaultValue)
         {
             Int64 result;
-            var bRet = Int64.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Int64.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -341,8 +341,8 @@ namespace Candy.Helpers
         public static SByte TryParseSByteDefault(String target, SByte defaultValue)
         {
             SByte result;
-            var bRet = SByte.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = SByte.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -353,8 +353,8 @@ namespace Candy.Helpers
         public static SByte TryParseSByteDefault(String target, NumberStyles style, IFormatProvider provider, SByte defaultValue)
         {
             SByte result;
-            var bRet = SByte.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = SByte.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -364,8 +364,8 @@ namespace Candy.Helpers
         public static Single TryParseSingleDefault(String target, Single defaultValue)
         {
             Single result;
-            var bRet = Single.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Single.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -375,8 +375,8 @@ namespace Candy.Helpers
         public static Double TryParseSingleDefault(String target, NumberStyles style, IFormatProvider provider, Single defaultValue)
         {
             Single result;
-            var bRet = Single.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = Single.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -387,8 +387,8 @@ namespace Candy.Helpers
         public static UInt16 TryParseUInt16Default(String target, UInt16 defaultValue)
         {
             UInt16 result;
-            var bRet = UInt16.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt16.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -399,8 +399,8 @@ namespace Candy.Helpers
         public static UInt16 TryParseUInt16Default(String target, NumberStyles style, IFormatProvider provider, UInt16 defaultValue)
         {
             UInt16 result;
-            var bRet = UInt16.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt16.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -411,8 +411,8 @@ namespace Candy.Helpers
         public static UInt32 TryParseUInt32Default(String target, UInt32 defaultValue)
         {
             UInt32 result;
-            var bRet = UInt32.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt32.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -423,8 +423,8 @@ namespace Candy.Helpers
         public static UInt32 TryParseUInt64Default(String target, NumberStyles style, IFormatProvider provider, UInt32 defaultValue)
         {
             UInt32 result;
-            var bRet = UInt32.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt32.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -435,8 +435,8 @@ namespace Candy.Helpers
         public static UInt64 TryParseUInt64Default(String target, UInt64 defaultValue)
         {
             UInt64 result;
-            var bRet = UInt64.TryParse(target, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt64.TryParse(target, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -447,8 +447,8 @@ namespace Candy.Helpers
         public static UInt64 TryParseUInt64Default(String target, NumberStyles style, IFormatProvider provider, UInt64 defaultValue)
         {
             UInt64 result;
-            var bRet = UInt64.TryParse(target, style, provider, out result);
-            return bRet ? result : defaultValue;
+            var success = UInt64.TryParse(target, style, provider, out result);
+            return success ? result : defaultValue;
         }
 
         /// <summary>
@@ -459,8 +459,8 @@ namespace Candy.Helpers
         {
 #if !NET3_5
             T result;
-            var bRet = Enum.TryParse<T>(target, out result);
-            return bRet ? result : defaultValue;
+            var success = Enum.TryParse<T>(target, out result);
+            return success ? result : defaultValue;
 #else
             return Enum.IsDefined(typeof(T), target) ? (T) Enum.Parse(typeof(T), target, true) : defaultValue;
 #endif
@@ -474,8 +474,8 @@ namespace Candy.Helpers
         {
 #if !NET3_5
             T result;
-            var bRet = Enum.TryParse<T>(target, ignoreCase, out result);
-            return bRet ? result : defaultValue;
+            var success = Enum.TryParse<T>(target, ignoreCase, out result);
+            return success ? result : defaultValue;
 #else
             return Enum.IsDefined(typeof(T), target) ? (T) Enum.Parse(typeof(T), target, true) : defaultValue;
 #endif

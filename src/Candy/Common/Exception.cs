@@ -108,7 +108,9 @@ namespace Candy.Common
         {
             Exception<TExceptionArgs> other = obj as Exception<TExceptionArgs>;
             if (obj == null)
+            {
                 return false;
+            }
             return Object.Equals(this.args, other.args) && base.Equals(obj);
         }
 

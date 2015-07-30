@@ -15,8 +15,8 @@ namespace Candy.Helpers
     /// </summary>
     public static class RandomHelpers
     {
-        static Random random = new Random();
-        static object lockobj = new object();
+        private static Random random = new Random();
+        private static object lockobj = new object();
 
         /// <summary>
         /// Returns a nonnegative random number. 

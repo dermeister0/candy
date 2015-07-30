@@ -20,15 +20,19 @@ namespace Candy.Extensions
         /// Gets the value of Description attribute.
         /// </summary>
         /// <param name="target">Enum.</param>
-        /// <returns></returns>
+        /// <returns>Description text.</returns>
         public static String GetDescription(this Enum target)
         {
             if (target.GetType().IsEnum == false)
+            {
                 throw new ArgumentOutOfRangeException("target", "Target is not enum");
+            }
 
             FieldInfo fieldInfo = target.GetType().GetField(target.ToString());
             if (fieldInfo == null)
+            {
                 return null;
+            }
 #if NET4_5
             IEnumerable<DescriptionAttribute> attributes = fieldInfo.GetCustomAttributes<DescriptionAttribute>(false);
 #else
