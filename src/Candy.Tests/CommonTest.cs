@@ -14,7 +14,9 @@ namespace Candy.Tests
     public class CommonTest
     {
         [Serializable]
-        private class InvalidUserException : Common.ExceptionArgs { }
+        private class InvalidUserException : Common.ExceptionArgs
+        {
+        }
 
         private event EventHandler<EventArgs> TestEvent;
 
@@ -33,7 +35,9 @@ namespace Candy.Tests
             Common.EventHelpers.Raise(eventArgs, sender, ref TestEvent);
 
             if (TestEvent != null)
+            {
                 TestEvent(sender, eventArgs);
+            }
         }
 
         [Test]

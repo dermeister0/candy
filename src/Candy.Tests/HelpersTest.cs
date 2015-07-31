@@ -59,7 +59,8 @@ namespace Candy.Tests
         [Test]
         public void TestChunkSelectRange()
         {
-            int capacity = 250; int sum = 0;
+            int capacity = 250;
+            int sum = 0;
             IList<int> list = new List<int>(capacity);
             for (int i = 0; i < capacity; i++)
             {
@@ -79,7 +80,8 @@ namespace Candy.Tests
         [Test]
         public void TestChunkSelect()
         {
-            int capacity = 250; int sum = 0;
+            int capacity = 250;
+            int sum = 0;
             IList<int> list = new List<int>(capacity);
             for (int i = 0; i < capacity; i++)
             {

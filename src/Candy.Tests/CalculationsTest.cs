@@ -15,13 +15,18 @@ namespace Candy.Tests
         [Test]
         public void TestSecurityHashes()
         {
-            Assert.That(Calculations.Hashes.MD5("mypassword"), Is.EqualTo("34819d7beeabb9260a5c854bc85b3e44"));
-            Assert.That(Calculations.Hashes.SHA1("mypassword"), Is.EqualTo("91dfd9ddb4198affc5c194cd8ce6d338fde470e2".ToUpper()));
-            Assert.That(Calculations.Hashes.SHA256("mypassword"),
+            Assert.That(
+                Calculations.Hashes.MD5("mypassword"), Is.EqualTo("34819d7beeabb9260a5c854bc85b3e44"));
+            Assert.That(
+                Calculations.Hashes.SHA1("mypassword"), Is.EqualTo("91dfd9ddb4198affc5c194cd8ce6d338fde470e2".ToUpper()));
+            Assert.That(
+                Calculations.Hashes.SHA256("mypassword"),
                 Is.EqualTo("89e01536ac207279409d4de1e5253e01f4a1769e696db0d6062ca9b8f56767c8".ToUpper()));
-            Assert.That(Calculations.Hashes.SHA384("mypassword"),
+            Assert.That(
+                Calculations.Hashes.SHA384("mypassword"),
                 Is.EqualTo("95b2d3b2ad7c2759bf3daa53424e2a472bc932798dae30b982621833a449492883b7ae9d31d30d32372f98abdbb256ae".ToUpper()));
-            Assert.That(Calculations.Hashes.SHA512("mypassword"),
+            Assert.That(
+                Calculations.Hashes.SHA512("mypassword"),
                 Is.EqualTo("a336f671080fbf4f2a230f313560ddf0d0c12dfcf1741e49e8722a234673037dc493caa8d291d8025f71089d63cea809cc8ae53e5b17054806837dbe4099c4ca".ToUpper()));
             Assert.That(Calculations.Hashes.CRC32(@"This is test string."), Is.EqualTo(0xab6a9ba9));
         }
