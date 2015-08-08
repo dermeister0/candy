@@ -9,8 +9,10 @@ namespace Candy.Calculations
     using System.Collections.Generic;
     using System.Security;
     using System.Text;
+    using System.Text.RegularExpressions;
     using Validation;
     using Extensions;
+    using Helpers;
 
     /// <summary>
     /// Class to be used for password generation.
@@ -194,6 +196,8 @@ namespace Candy.Calculations
         /// </summary>
         static PasswordGenerator()
         {
+            var random = System.Security.Cryptography.RandomNumberGenerator.Create("Candy.PasswordGenerator");
+
             Random = new Random();
         }
 
@@ -277,64 +281,249 @@ namespace Candy.Calculations
         /// <returns>Estimate score.</returns>
         public static Int32 EstimatePasswordStrength(String password)
         {
-            if (String.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(password))
             {
                 throw new ArgumentException("Password cannot be empty");
             }
 
-            Int32 score = 0, uppercaseCount = 0, lowercaseCount = 0, numberCount = 0,
-                specialSymbolCount = 0, middleNumberOrSymbolCount = 0;
+            var passwordLower = password.ToLowerInvariant();
+            int score = 0;
+            int alphasUpperCount = 0, alphasLowerCount = 0, digitsCount = 0, symbolsCount = 0, middleCharsCount = 0,
+                requirements = 0, alphasOnlyCount = 0, numbersOnlyCount = 0, uniqueCharsCount = 0, repeatCharsCount = 0,
+                consequenceAlphasUpperCount = 0, consequenceAlphasLowerCount = 0, consequenceDigitsCount = 0, consequenceSymbolsCount = 0, consequenceCharsTypeCount = 0,
+                sequenceAlphasCount = 0, sequenceNumbersCount = 0, sequenceSymbolsCount = 0, sequenceCharsCount = 0, requiredCharsCount = 0;
+            double repeatIncrement = 0;
+            int tempAlphaUpperIndex = -1, tempAlphaLowerIndex = -1, tempNumberIndex = -1, tempSymbolIndex = -1;
 
-            // number of characters
-            score += password.Length * 4;
+            const int FactorMiddleChar = 2, FactorConsequenceAlphaUpper = 2, FactorConsequenceAlphaLower = 2, FactorConsequenceNumber = 2;
+            const int FactorSequenceAlpha = 3, FactorSequenceNumber = 3, FactorSequenceSymbol = 3;
+            const int FactorLength = 4, FactorNumber = 4;
+            const int FactorSymbol = 6;
+            const string PoolAlphas = "abcdefghijklmnopqrstuvwxyz";
+            const string PoolNumerics = "01234567890";
+            const string PoolSymbols = ")!@#$%^&*()";
+            const int MinimumPasswordLength = 8;
 
-            for (int i = 0; i < password.Length; i++)
+            score = password.Length * FactorLength;
+
+            // loop through password to check for Symbol, Numeric, Lowercase and Uppercase pattern matches
+            for (var a = 0; a < password.Length; a++)
             {
-                if (Char.IsUpper(password[i]))
+                if (Char.IsUpper(password[a]))
                 {
-                    uppercaseCount++;
+                    if (tempAlphaUpperIndex > -1 && tempAlphaUpperIndex + 1 == a)
+                    {
+                        consequenceAlphasUpperCount++;
+                        consequenceCharsTypeCount++;
+                    }
+                    tempAlphaUpperIndex = a;
+                    alphasUpperCount++;
                 }
-                if (Char.IsLower(password[i]))
+                else if (Char.IsLower(password[a]))
+                { 
+                    if (tempAlphaLowerIndex > -1 && tempAlphaLowerIndex + 1 == a)
+                    {
+                        consequenceAlphasLowerCount++;
+                        consequenceCharsTypeCount++;
+                    }
+                    tempAlphaLowerIndex = a;
+                    alphasLowerCount++;
+                }
+                else if (Char.IsNumber(password[a]))
+                { 
+                    if (a > 0 && a < password.Length - 1)
+                    {
+                        middleCharsCount++;
+                    }
+                    if (tempNumberIndex > -1 && tempNumberIndex + 1 == a)
+                    {
+                        consequenceDigitsCount++;
+                        consequenceCharsTypeCount++;
+                    }
+                    tempNumberIndex = a;
+                    digitsCount++;
+                }
+                else if (Regex.IsMatch(password[a].ToString(), @"[^a-zA-Z0-9_]"))
+                { 
+                    if (a > 0 && a < (password.Length - 1))
+                    {
+                        middleCharsCount++;
+                    }
+                    if (tempSymbolIndex > -1 && tempSymbolIndex + 1 == a)
+                    {
+                        consequenceSymbolsCount++;
+                        consequenceCharsTypeCount++;
+                    }
+                    tempSymbolIndex = a;
+                    symbolsCount++;
+                }
+                // internal loop through password to check for repeat characters
+                var charExists = false;
+                for (var b = 0; b < password.Length; b++)
                 {
-                    lowercaseCount++;
+                    // repeat character exists
+                    if (password[a] == password[b] && a != b)
+                    {
+                        charExists = true;
+                        /* Calculate icrement deduction based on proximity to identical characters
+                           Deduction is incremented each time a new match is discovered
+                           Deduction amount is based on total password length divided by the
+                           difference of distance between currently selected match */
+                        repeatIncrement += Math.Abs(password.Length / (b - a));
+                    }
                 }
-                if (Char.IsDigit(password[i]))
+                if (charExists)
+                { 
+                    repeatCharsCount++; 
+                    uniqueCharsCount = password.Length - repeatCharsCount;
+                    repeatIncrement = uniqueCharsCount > 0 ? Math.Ceiling(repeatIncrement / uniqueCharsCount) : Math.Ceiling(repeatIncrement); 
+                }
+            }
+        
+            // check for sequential alpha string patterns (forward and reverse)
+            for (var s = 0; s < PoolAlphas.Length - 3; s++)
+            {
+                var forward = PoolAlphas.Substring(s, 3);
+                var reverse = StringHelpers.Reverse(forward);
+                if (passwordLower.IndexOf(forward) != -1 || passwordLower.IndexOf(reverse) != -1)
                 {
-                    numberCount++;
+                    sequenceAlphasCount++;
+                    sequenceCharsCount++;
                 }
-                if (PoolSpecial.Contains(password[i].ToString()) || PoolSpecialConflict.Contains(password[i].ToString()))
+            }
+        
+            // check for sequential numeric string patterns (forward and reverse)
+            for (var s = 0; s < PoolNumerics.Length - 3; s++)
+            {
+                var forward = PoolNumerics.Substring(s, 3);
+                var reverse = StringHelpers.Reverse(forward);
+                if (passwordLower.IndexOf(forward) != -1 || passwordLower.IndexOf(reverse) != -1)
                 {
-                    specialSymbolCount++;
+                    sequenceNumbersCount++;
+                    sequenceCharsCount++;
                 }
-                if (Char.IsDigit(password[i]) && i > 0 && i + 1 < password.Length)
+            }
+        
+            // check for sequential symbol string patterns (forward and reverse)
+            for (var s = 0; s < PoolSymbols.Length - 3; s++)
+            {
+                var forward = PoolSymbols.Substring(s, 3);
+                var reverse = StringHelpers.Reverse(forward);
+                if (passwordLower.IndexOf(forward) != -1 || passwordLower.IndexOf(reverse) != -1)
                 {
-                    middleNumberOrSymbolCount++;
+                    sequenceSymbolsCount++;
+                    sequenceCharsCount++;
                 }
+            }
+        
+            // Modify overall score value based on usage vs requirements //
+
+            // General point assignment
+            if (alphasUpperCount > 0 && alphasUpperCount < password.Length)
+            {   
+                score += (password.Length - alphasUpperCount) * 2;
+            }
+            if (alphasLowerCount > 0 && alphasLowerCount < password.Length)
+            {   
+                score += (password.Length - alphasLowerCount) * 2;
+            }
+            if (digitsCount > 0 && digitsCount < password.Length)
+            {   
+                score += digitsCount * FactorNumber;
+            }
+            if (symbolsCount > 0)
+            {   
+                score += symbolsCount * FactorSymbol;
+            }
+            if (middleCharsCount > 0)
+            {   
+                score += middleCharsCount * FactorMiddleChar;
+            }
+        
+            // Point deductions for poor practices //
+
+            // only Letters
+            if ((alphasLowerCount > 0 || alphasUpperCount > 0) && symbolsCount == 0 && digitsCount == 0)
+            {
+                score = score - password.Length;
+                alphasOnlyCount = password.Length;
+            }
+            // only Numbers
+            if (alphasLowerCount == 0 && alphasUpperCount == 0 && symbolsCount == 0 && digitsCount > 0)
+            {
+                score = score - password.Length;
+                numbersOnlyCount = password.Length;
+            }
+            // same character exists more than once
+            if (repeatCharsCount > 0)
+            {
+                score = (int)(score - repeatIncrement);
+            }
+            // consecutive uppercase letters exist
+            if (consequenceAlphasUpperCount > 0)
+            {
+                score -= consequenceAlphasUpperCount * FactorConsequenceAlphaUpper;
+            }
+            // consecutive lowercase letters exist
+            if (consequenceAlphasLowerCount > 0)
+            {
+                score -= consequenceAlphasLowerCount * FactorConsequenceAlphaLower;
+            }
+            // consecutive numbers exist
+            if (consequenceDigitsCount > 0)
+            {
+                score -= consequenceDigitsCount * FactorConsequenceNumber;
+            }
+            // sequential alpha strings exist (3 characters or more)
+            if (sequenceAlphasCount > 0)
+            {
+                score -= sequenceAlphasCount * FactorSequenceAlpha;
+            }
+            // sequential numeric strings exist (3 characters or more)
+            if (sequenceNumbersCount > 0)
+            {
+                score -= sequenceNumbersCount * FactorSequenceNumber;
+            }
+            // sequential symbol strings exist (3 characters or more)
+            if (sequenceSymbolsCount > 0)
+            {
+                score -= sequenceSymbolsCount * FactorSequenceSymbol;
             }
 
-            // minimum requirements
-            var minRequirements = 0;
-            if (uppercaseCount > 0)
+            // determine if mandatory requirements have been met and set image indicators accordingly
+            var arrChars = new int[] { password.Length, alphasUpperCount, alphasLowerCount, digitsCount, symbolsCount };
+            for (var c = 0; c < arrChars.Length; c++)
             {
-                minRequirements++;
+                var minValue = 0;
+                // password length
+                if (c == 0)
+                {
+                    minValue = MinimumPasswordLength - 1;
+                }
+                else
+                {
+                    minValue = 0;
+                }
+                if (arrChars[c] == minValue + 1)
+                {
+                    requiredCharsCount++;
+                }
+                else if (arrChars[c] > minValue + 1)
+                {
+                    requiredCharsCount++;
+                }
             }
-            if (lowercaseCount > 0)
+            requirements = requiredCharsCount;
+            int minRequiredChars = password.Length >= MinimumPasswordLength ? 3 : 4;
+            // one or more required characters exist
+            if (requirements > minRequiredChars)
             {
-                minRequirements++;
-            }
-            if (numberCount > 0)
-            {
-                minRequirements++;
-            }
-            if (specialSymbolCount > 0)
-            {
-                minRequirements++;
-            }
-            if (password.Length < 9 || minRequirements <= 3)
-            {
-                score = 0;
+                score += requirements * 2;
             }
 
+            score = score > 100 ? 100 : score;
+            score = score < 0 ? 0 : score;
+            
             return score;
         }
 

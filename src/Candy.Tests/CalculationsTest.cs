@@ -50,10 +50,11 @@ namespace Candy.Tests
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("2222222222"), Is.EqualTo(0));
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789"), Is.EqualTo(4));
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789A"), Is.EqualTo(73));
-            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789A"), Is.EqualTo(75));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456789AB"), Is.EqualTo(75));
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("CCCCCCCCC"), Is.EqualTo(0));
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("8m6y2L2WhalkPDa"), Is.EqualTo(100));
             Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("AA11bb00__"), Is.EqualTo(68));
+            Assert.That(Calculations.PasswordGenerator.EstimatePasswordStrength("123456_789AB"), Is.EqualTo(89));
         }
     }
 }

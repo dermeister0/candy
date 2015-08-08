@@ -48,6 +48,13 @@ namespace Candy.Tests
         }
 
         [Test]
+        public void TestStringSafeSubstrng()
+        {
+            Assert.That(CandyHelpers.StringHelpers.SafeSubstring("123", 1, 3), Is.EqualTo("23"));
+            Assert.That(CandyHelpers.StringHelpers.SafeSubstring("123", 1, 6), Is.EqualTo("23"));
+        }
+
+        [Test]
         public void TestDictionary()
         {
             Dictionary<int, string> dict = new Dictionary<int, string>();

@@ -108,6 +108,49 @@ namespace Candy.Helpers
             return ("^" + Regex.Escape(pattern)).Replace("\\*", ".*").Replace("\\?", ".") + "$";
         }
 
+        /// <summary>
+        /// Reverse string characters. "123" -> "321".
+        /// </summary>
+        /// <param name="target">Target string.</param>
+        /// <returns>Reversed string.</returns>
+        [DebuggerStepThrough]
+        public static String Reverse(String target)
+        {
+            Char[] arr = target.ToCharArray();
+            Array.Reverse(arr);
+            return new String(arr);
+        }
+
+        /// <summary>
+        /// Retrieves a substring from this instance. If start index had negative value it will be replaced
+        /// to 0. If substring exceed length of target string the end of string will be returned.
+        /// </summary>
+        /// <param name="target">Target string.</param>
+        /// <param name="startIndex">The zero-based starting character position of a substring in this instance.</param>
+        /// <param name="length">The number of characters in the substring.</param>
+        /// <returns>Substring.</returns>
+        [DebuggerStepThrough]
+        public static String SafeSubstring(String target, int startIndex, int length = 0)
+        {
+            if (startIndex < 0)
+            {
+                startIndex = 0;
+            }
+            else if (startIndex > target.Length)
+            {
+                return string.Empty;
+            }
+            if (length == 0)
+            {
+                length = target.Length;
+            }
+            else if (startIndex + length > target.Length)
+            {
+                length = target.Length - startIndex;
+            }
+            return target.Substring(startIndex, length);
+        }
+
         #endregion
 
         #region Checks
