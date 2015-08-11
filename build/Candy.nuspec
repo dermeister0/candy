@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Candy</id>
+    <version>$version$</version>
+    <authors>Saritasa</authors>
+    <owners>Ivan Kozhin</owners>
+    <licenseUrl>https://github.com/krasninja/candy/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/krasninja/candy</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/krasninja/candy/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A collect of practical tools and extensions to make development easier.</description>
+    <copyright>Copyright 2015</copyright>
+  </metadata>
+</package>

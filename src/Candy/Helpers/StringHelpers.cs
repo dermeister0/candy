@@ -171,12 +171,16 @@ namespace Candy.Helpers
             return String.IsNullOrWhiteSpace(value);
 #else
             if (value == null)
+            {
                 return true;
+            }
 
             for (Int32 i = 0; i < value.Length; i++)
             {
                 if (!Char.IsWhiteSpace(value[i]))
+                {
                     return false;
+                }
             }
             return true;
 #endif

@@ -47,12 +47,15 @@ namespace Candy.Extensions
         public static Boolean HasFlag(this Enum target, Enum flag)
         {
             if (flag == null)
+            {
                 throw new ArgumentNullException("flag");
+            }
             
             if (target.GetType() != flag.GetType())
             {
-                throw new ArgumentException(String.Format("The argument type, '{0}', is not the same as the enum type '{1}'.",
-                    flag.GetType(), target.GetType()));
+                throw new ArgumentException(
+                    String.Format("The argument type, '{0}', is not the same as the enum type '{1}'.", flag.GetType(), target.GetType())
+                );
             }
 
             ulong uflag = Convert.ToUInt64(flag);
