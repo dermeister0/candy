@@ -41,6 +41,21 @@ namespace Candy.Tests
             );
             var password = passwordGenerator.Generate();
             Assert.That(password.Length, Is.EqualTo(25));
+
+            Calculations.PasswordGenerator passwordGenerator2 = new Calculations.PasswordGenerator();
+            passwordGenerator2.PasswordLength = 15;
+            passwordGenerator2.SetCharactersPool("1");
+            Assert.That(passwordGenerator2.Generate(), Is.EqualTo("111111111111111"));
+        }
+
+        [Test]
+        public void TestPasswordEntropyCalculation()
+        {
+            Calculations.PasswordGenerator passwordGenerator = new Calculations.PasswordGenerator();
+            passwordGenerator.PasswordLength = 10;
+            passwordGenerator.SetCharactersPool("0123456789"); // 10 symbols
+            var entropy = passwordGenerator.GetEntropy();
+            Assert.That(entropy, Is.EqualTo(33.219).Within(1).Percent);
         }
 
         [Test]

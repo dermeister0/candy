@@ -10,6 +10,7 @@ namespace Candy.Calculations
     using System.Security;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Security.Cryptography;
     using Validation;
     using Extensions;
     using Helpers;
@@ -111,7 +112,12 @@ namespace Candy.Calculations
         /// <summary>
         /// Instance of random generation class.
         /// </summary>
-        public static Random Random { get; protected set; }
+        public static RandomNumberGenerator RandomService { get; protected set; }
+        
+        /// <summary>
+        /// Lock object for RandomService.
+        /// </summary>
+        private static object randomServiceLock = new object();
 
         /// <summary>
         /// Characters pool that is use for password generation.
@@ -196,9 +202,7 @@ namespace Candy.Calculations
         /// </summary>
         static PasswordGenerator()
         {
-            var random = System.Security.Cryptography.RandomNumberGenerator.Create("Candy.PasswordGenerator");
-
-            Random = new Random();
+            RandomService = System.Security.Cryptography.RandomNumberGenerator.Create();
         }
 
         /// <summary>
@@ -239,7 +243,7 @@ namespace Candy.Calculations
 
             for (int i = 0; i < PasswordLength; i++)
             {
-                int random = Random.Next(pool.Length);
+                int random = GetNextRandom(pool.Length);
                 sb.Append(pool[random]);
             }
 
@@ -252,7 +256,7 @@ namespace Candy.Calculations
         /// <returns>Password.</returns>
         public SecureString GenerateSecure()
         {
-            var pool = String.IsNullOrEmpty(this.CharactersPool) == false ? CreateCharactersPool() : this.CharactersPool.ToCharArray();
+            var pool = String.IsNullOrEmpty(this.CharactersPool) ? CreateCharactersPool() : this.CharactersPool.ToCharArray();
             var secureString = new SecureString();
 
             if (this.GeneratorFlags.HasFlag(GeneratorFlag.ShuffleChars))
@@ -262,7 +266,7 @@ namespace Candy.Calculations
 
             for (int i = 0; i < PasswordLength; i++)
             {
-                int random = Random.Next(pool.Length);
+                int random = GetNextRandom(pool.Length);
                 secureString.AppendChar(pool[random]);
             }
 
@@ -533,7 +537,7 @@ namespace Candy.Calculations
         /// <returns>Password's entropy.</returns>
         public Double GetEntropy()
         {
-            var pool = String.IsNullOrEmpty(this.CharactersPool) == false ? CreateCharactersPool() : this.CharactersPool.ToCharArray();
+            var pool = String.IsNullOrEmpty(this.CharactersPool) ? CreateCharactersPool() : this.CharactersPool.ToCharArray();
             return Math.Log(Math.Pow(this.PasswordLength, pool.Length), 2);
         }
 
@@ -585,9 +589,24 @@ namespace Candy.Calculations
         {
             for (int i = chars.Length - 1; i >= 1; i--)
             {
-                int j = Random.Next(i + 1);
+                int j = GetNextRandom(i + 1);
                 Common.Objects.Swap(ref chars[i], ref chars[j]);
             }
+        }
+
+        /// <summary>
+        /// Get next random number using RandomService.
+        /// </summary>
+        /// <param name="maxValue">Maximum value for number.</param>
+        /// <returns>The random number between zero and maxValue.</returns>
+        private static int GetNextRandom(int maxValue)
+        {
+            byte[] bytes = new byte[4];
+            lock (randomServiceLock)
+            {
+                RandomService.GetNonZeroBytes(bytes);
+            }
+            return (int)Math.Round((double)(BitConverter.ToUInt32(bytes, 0) / UInt32.MaxValue) * (maxValue - 1));
         }
     }
 }
