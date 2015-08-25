@@ -33,7 +33,7 @@ namespace Candy.Extensions
             {
                 return null;
             }
-#if NET4_5
+#if NET4_5 || MONO
             IEnumerable<DescriptionAttribute> attributes = fieldInfo.GetCustomAttributes<DescriptionAttribute>(false);
 #else
             IEnumerable<DescriptionAttribute> attributes = (IEnumerable<DescriptionAttribute>)

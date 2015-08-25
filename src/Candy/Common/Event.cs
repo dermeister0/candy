@@ -19,7 +19,7 @@ namespace Candy.Common
         public static void Raise<TEventArgs>(TEventArgs e, object sender, ref EventHandler<TEventArgs> eventDelegate)
             where TEventArgs : EventArgs
         {
-#if NET4_5
+#if NET4_5 || MONO
             var temp = Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;

@@ -104,11 +104,15 @@ namespace Candy.Domain
         void Trace(String message, Exception exception, [CallerFilePath] String sourceFilePath = null);
     }
 
-#if !NET4_5
+#if !NET4_5 && !MONO
     /// Just fake implementation.
     [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
     public sealed class CallerFilePathAttribute : Attribute
     {
+		/// <summary>
+		/// Allows you to obtain the full path of the source file that contains the caller.
+		/// This is the file path at the time of compile.
+		/// </summary>
         public CallerFilePathAttribute()
         {
         }
