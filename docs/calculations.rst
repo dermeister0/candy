@@ -8,34 +8,36 @@ Contains set of methods based on standard library implementation to work with st
 
 .. function:: String MD5(String str)
 
-    Returns MD5 hash of string. PHP-compliant. Useful for passwords hashing.
+    Produces 128-bit hash value of string. PHP-compliant. The security of the MD5 hash function is severely compromised. It is not recommended for password hashing and provided only for backward compatibility.
 
 .. function:: String SHA1(String str)
 
-    Returns SHA1 hash of string. Useful for passwords hashing.
+    Produces 160-bit hash value of string. The most widely used hasing algorithm. It is not recommended to use it for hashing now:
+
+    .. https://community.qualys.com/blogs/securitylabs/2014/09/09/sha1-deprecation-what-you-need-to-know
 
 .. function:: String SHA256(String str)
 
-    Returns SHA256 hash of string. Useful for passwords hashing.
+    Produces 256-bit hash value of string. Variant of SHA-2. It provides good security for password hashing.
 
 .. function::: String SHA384(String str)
 
-    Returns SHA384 hash of string. Useful for passwords hashing.
+    Produces 384-bit hash value of string. Variant of SHA-2. It provides good security for password hashing.
 
 .. function:: String SHA512(String str)
 
-    Returns SHA512 hash of string. Useful for passwords hashing.
+    Produces 512-bit hash value of string. Variant of SHA-2. It provides very good security for password hashing.
 
 .. function:: UInt64 CRC32(String str)
 
-    Returns CSC32 hash of string. Useful for integrity check.
+    Returns CSC32 hash of string. A cyclic redundancy check (CRC) is an error-detecting code commonly used in digital networks and storage devices to detect accidental changes to raw data. Provides good hashing performance. Must not be used for sensitive data hashing (passwords, tokens, etc).
 
 Passwords
 ---------
 
 .. class:: PasswordGenerator
 
-The class is to generate and check passwords. Most of websites require new password on register, also it is useful to check that user's password is secure and ask him to change it in other case. Parameters:
+The class is to generate and check passwords. Most of websites require new password on user registration, also it is useful to check that user's password is secure and ask him to change it in other case. Parameters:
 
 .. attribute:: PasswordLength
 
@@ -76,7 +78,9 @@ The class is to generate and check passwords. Most of websites require new passw
 
 .. function:: static Int32 EstimatePasswordStrength(String password)
 
-    Estimates password strength. The algorithm has been copied from www.passwordmeter.com. It uses following rules to calculate total score (`n` is a password length):
+    Estimates password strength. The value will be between 0 and 100. The algorithm has been copied from passwordmeter.com_ . It uses following rules to calculate total score (`n` is a password length):
+
+    .. _passwordmeter.com: http://www.passwordmeter.com/
 
         - Number of characters ``+(n*4)``
         - Uppercase letters ``+((len-n)*2)``
@@ -98,3 +102,15 @@ The class is to generate and check passwords. Most of websites require new passw
         - Sequential letters (3+) ``-(n*3)``
         - Sequential numbers (3+) ``-(n*3)``
         - Sequential symbols (3+) ``-(n*3)``
+
+    Here is a table to determine complexity based on score:
+
+    ============= ==============
+    Score Range   Description
+    ============= ==============
+     0 - 19       Very weak
+    20 - 39       Weak
+    40 - 59       Good
+    60 - 79       Strong
+    79 - 100      Very strong
+    ============= ==============
