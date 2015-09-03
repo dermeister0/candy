@@ -6,29 +6,29 @@ Hashes
 
 Contains set of methods based on standard library implementation to work with strings:
 
-.. function:: String MD5(String str)
+.. function:: string MD5(string str)
 
     Produces 128-bit hash value of string. PHP-compliant. The security of the MD5 hash function is severely compromised. It is not recommended for password hashing and provided only for backward compatibility.
 
-.. function:: String SHA1(String str)
+.. function:: string SHA1(sring str)
 
     Produces 160-bit hash value of string. The most widely used hasing algorithm. It is not recommended to use it for hashing now:
 
     .. https://community.qualys.com/blogs/securitylabs/2014/09/09/sha1-deprecation-what-you-need-to-know
 
-.. function:: String SHA256(String str)
+.. function:: string SHA256(string str)
 
     Produces 256-bit hash value of string. Variant of SHA-2. It provides good security for password hashing.
 
-.. function::: String SHA384(String str)
+.. function:: string SHA384(string str)
 
     Produces 384-bit hash value of string. Variant of SHA-2. It provides good security for password hashing.
 
-.. function:: String SHA512(String str)
+.. function:: string SHA512(string str)
 
     Produces 512-bit hash value of string. Variant of SHA-2. It provides very good security for password hashing.
 
-.. function:: UInt64 CRC32(String str)
+.. function:: UInt64 CRC32(string str)
 
     Returns CSC32 hash of string. A cyclic redundancy check (CRC) is an error-detecting code commonly used in digital networks and storage devices to detect accidental changes to raw data. Provides good hashing performance. Must not be used for sensitive data hashing (passwords, tokens, etc).
 
@@ -60,7 +60,7 @@ The class is to generate and check passwords. Most of websites require new passw
         - ``ShuffleChars`` shuffles the whole characters pool before password generation;
         - ``MakeReadOnly`` the flag is itended to be used for SecureString only, make it read only;
 
-.. function:: void SetCharactersPool(String pool)
+.. function:: void SetCharactersPool(string pool)
 
     Use custom characters pool instead of default one. If this parameter is set generation does not take into account ``CharacterClasses`` property.
 
@@ -68,7 +68,7 @@ The class is to generate and check passwords. Most of websites require new passw
 
     Resets character pool. Custom characters pool will not be used.
 
-.. function:: String Generate()
+.. function:: string Generate()
 
     Generates new password based on defined parameters.
 
@@ -76,7 +76,7 @@ The class is to generate and check passwords. Most of websites require new passw
 
     Generates new password as ``SecureString``.
 
-.. function:: static Int32 EstimatePasswordStrength(String password)
+.. function:: static int EstimatePasswordStrength(string password)
 
     Estimates password strength. The value will be between 0 and 100. The algorithm has been copied from passwordmeter.com_ . It uses following rules to calculate total score (`n` is a password length):
 

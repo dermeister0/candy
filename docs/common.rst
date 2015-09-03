@@ -1,6 +1,8 @@
 Common
 ======
 
+The common namespace provides classes for exceptions handling and some other methods related to .NET framework.
+
 EventRaiseHelpers
 -----------------
 
@@ -35,4 +37,4 @@ Objects
 
 .. function:: static void Swap<T>(ref T item1, ref T item2)
 
-    Swaps two variables by referencies.
+    Swaps two variables by their referencies.

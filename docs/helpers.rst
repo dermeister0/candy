@@ -6,13 +6,13 @@ Namespace contains helpers implemented as static methods. You can use them like 
 CollectionsHelpers
 ------------------
 
-.. function:: static IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(IEnumerable<T> source, int chunkSize = 1000)
+.. function:: IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(IEnumerable<T> source, int chunkSize)
 
-.. function:: static IEnumerable<T> ChunkSelect<T>(IEnumerable<T> source, int chunkSize = 1000)
+.. function:: IEnumerable<T> ChunkSelect<T>(IEnumerable<T> source, int chunkSize)
 
 .. function:: void Walk<T>(IEnumerable<T> target, Action<T> action)
 
-    Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. For example you can use it like this:
+    Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
 
         .. code-block:: csharp
 
@@ -35,11 +35,11 @@ DateTimeHelpers
 
 .. function:: DateTime BeginOfMonth(DateTime target)
 
-    Returns begin of month for specified date.
+    Return begin of month for specified date.
 
 .. function:: DateTime EndOfMonth(DateTime target)
 
-    Returns end of month for specified date.
+    Return end of month for specified date.
 
 DictionaryHelpers
 -----------------
@@ -65,41 +65,51 @@ Thread-safe equivalent of System.Random, using just static methods.
 
 .. function:: int Next()
 
+    Returns a nonnegative random number.
+
 .. function:: int Next(int max)
+
+    Returns a nonnegative random number less than the specified maximum.
 
 .. function:: int Next(int min, int max)
 
+    Returns a random number within a specified range.
+
 .. function:: double NextDouble()
 
+    Returns a random number between 0.0 and 1.0.
+
 .. function:: void NextBytes(byte[] buffer)
+
+    Fills the elements of a specified array of bytes with random numbers.
 
 StringHelpers
 -------------
 
-.. function:: String ConvertToSnakeCase(String target)
+.. function:: string ConvertToSnakeCase(string target)
 
     Converts string to snake case string style. Example: HelloWorld -> hello_world.
 
-.. function:: Boolean IsEmail(String target)
+.. function:: bool IsEmail(string target)
 
     Returns true if strign is email address. Uses ``CheckConstants.EmailExpression`` regexp to check.
 
-.. function:: String Truncate(String target, int maxLength)
+.. function:: string Truncate(string target, int maxLength)
 
     Truncates target string to max length. Useful to do not allow string to exceed specific amount of character.
 
-.. function:: String JoinIgnoreEmpty(String separator, params String[] values)
-              String JoinIgnoreEmpty(String separator, IEnumerable<String> values)
+.. function:: string JoinIgnoreEmpty(string separator, params string[] values)
+              string JoinIgnoreEmpty(string separator, IEnumerable<string> values)
 
-.. function:: String WildcardToRegex(String pattern)
+.. function:: string WildcardToRegex(sring pattern)
 
     Converts wildcard characters to regexp string. For example `He*ll? -> He\*ll\?`.
 
-.. function:: bool IsNullOrWhiteSpace(String value)
+.. function:: bool IsNullOrWhiteSpace(string value)
 
     This is equivalent of String.IsNullOrWhiteSpace for .NET 3.5 .
 
-.. function:: bool IsNullOrEmpty(String value)
+.. function:: bool IsNullOrEmpty(string value)
 
     This is equivalent of String.IsNullOrEmpty for .NET 3.5 .
 
@@ -119,7 +129,7 @@ Sometimes when we try to convert some type from string to another one (`int.Pars
         Candy.Helpers.StringHelpers.TryParseInt32Default("1q", 1);
 
 ================================================ ============ ==========
-Method Name                                      Input Type   Type Alias
+Method Name                                      Output Type  Type Alias
 ================================================ ============ ==========
 ``TryParseBooleanDefault``                       Boolean      bool
 ``TryParseByteDefault``                          Byte         byte
@@ -138,10 +148,10 @@ Method Name                                      Input Type   Type Alias
 ``TryParseEnumDefault``                          Enum
 ================================================ ============ ==========
 
-.. function:: T TryParseEnumDefault<T>(String target, T defaultValue)
+.. function:: T TryParseEnumDefault<T>(string target, T defaultValue)
 
     Convert string value to enum value or return default
 
-.. function:: T TryParseEnumDefault<T>(String target, Boolean ignoreCase, T defaultValue)
+.. function:: T TryParseEnumDefault<T>(string target, bool ignoreCase, T defaultValue)
 
     Convert string value to enum value or return default.

@@ -24,7 +24,7 @@ EnumExtensions
 
 .. function:: Boolean HasFlag(Enum target, Enum flag)
 
-    Only for .NET 3.5 . Checked whether the flag for enum is specified.
+    Only for .NET 3.5 . Checks whether the flag for enum is specified.
 
 StringExtensions
 ----------------
@@ -45,12 +45,12 @@ These are extension methods that applied to String type.
 
 .. function:: Boolean String.IsEmpty()
 
-    Returns true if string empty. Without Candy you have to write ``String.IsNullOrEmpty(str)``.
+    Returns true if string is empty. Without Candy you have to write ``String.IsNullOrEmpty(str)``.
 
 .. function:: Boolean String.IsNotEmpty()
 
-    Returns true if string not empty. Without Candy you have to write ``!String.IsNullOrEmpty(str)``.
+    Returns true if string is not empty. Without Candy you have to write ``!String.IsNullOrEmpty(str)``.
 
 .. function:: String String.NullSafe()
 
-    Returns empty string if target string is empty or string itself.
+    Returns empty string if target string is empty or string itself. It is the same as ``(mystring ?? "")``.

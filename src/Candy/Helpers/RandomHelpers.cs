@@ -19,7 +19,7 @@ namespace Candy.Helpers
         private static object lockobj = new object();
 
         /// <summary>
-        /// Returns a nonnegative random number. 
+        /// Returns a nonnegative random number.
         /// </summary>
         /// <returns>A 32-bit signed integer greater than or equal to zero and less than Int32.MaxValue.</returns>
         public static int Next()
@@ -31,10 +31,10 @@ namespace Candy.Helpers
         }
 
         /// <summary>
-        /// Returns a nonnegative random number less than the specified maximum. 
+        /// Returns a nonnegative random number less than the specified maximum.
         /// </summary>
         /// <returns>
-        /// A 32-bit signed integer greater than or equal to zero, and less than maxValue; 
+        /// A 32-bit signed integer greater than or equal to zero, and less than maxValue;
         /// that is, the range of return values includes zero but not maxValue.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">Max value is less than zero.</exception>
@@ -47,7 +47,7 @@ namespace Candy.Helpers
         }
 
         /// <summary>
-        /// Returns a random number within a specified range. 
+        /// Returns a random number within a specified range.
         /// </summary>
         /// <param name="min">The inclusive lower bound of the random number returned. </param>
         /// <param name="max">

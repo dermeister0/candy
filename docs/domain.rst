@@ -18,51 +18,61 @@ ILogger
 
 Logging abstraction to separate your logging infrastructure. For implementation you can use NLog or log4net. The interface is pretty simple and contains following methods:
 
-.. function:: void Fatal(String message)
+.. function:: void Fatal(string message)
 
-.. function:: void Error(String message)
+.. function:: void Error(string message)
 
-.. function:: void Warn(String message)
+.. function:: void Warn(string message)
 
-.. function:: void Info(String message)
+.. function:: void Info(string message)
 
-.. function:: void Debug(String message)
+.. function:: void Debug(string message)
 
-.. function:: void Trace(String message)
+.. function:: void Trace(string message)
 
 IRepository
 -----------
 
+Common repository pattern abstraction. A Repository mediates between the domain and data mapping layers, acting like an in-memory domain object collection.
+
 .. function:: IEnumerable<TEntity> GetAll<TEntity>()
+
+    Returns all entities of specified type.
 
 .. function:: TEntity Get<TEntity>(object id)
 
+    Returns specific object by id or null.
+
 .. function:: void Add<TEntity>(TEntity entity)
 
+    Add entity to data storage.
+
 .. function:: void Remove<TEntity>(TEntity entity)
+
+    Remove entity from data storage.
 
 ISession
 --------
 
 Session is an unit of work and repository abstraction.
 
-.. function:: IQueryable<T> GetAll<T>(string include)
+.. function:: IQueryable<TEntity> GetAll<TEntity>(string include)
 
-    Gets queriable list of specified entities.
+    Return queriable list of specified entities. ``include`` is a set of properties that needs to be autoloaded with query (for example with join sql). You can use comma to specify several properties.
 
-.. function:: T Get<T>(object id)
+.. function:: TEntity Get<TEntity>(object id)
 
-    Get entity by id.
+    Return entity by id or null.
 
-.. function:: void MarkAdded<T>(T entity)
+.. function:: void MarkAdded<TEntity>(TEntity entity)
 
     Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
 
-.. function:: void MarkRemoved<T>(T entity)
+.. function:: void MarkRemoved<TEntity>(TEntity entity)
 
-    Math entity as removed to unit of work. Call `Commit` to send changes to data storage.
+    Math entity as removed from unit of work. Call `Commit` to send changes to data storage.
 
-.. function:: void Attach<T>(T entity)
+.. function:: void Attach<TEntity>(TEntity entity)
 
     Attach entity to unit of work. Usually it is the same as attach object to data context.
 
@@ -73,7 +83,7 @@ Session is an unit of work and repository abstraction.
 ISessionFactory
 ---------------
 
-To create session the factory should be used.
+To create ``ISession`` there should be specific session factory.
 
 .. function:: ISession Create(IsolationLevel isolationLevel)
 
@@ -88,26 +98,26 @@ IUnitOfWork
 
 Unit of work abstraction. Can be used to implement Entity Framwork or NHibernate implementations. The inherit class must implement:
 
-.. function:: void MarkAdded<T>(T entity)
+.. function:: void MarkAdded<TEntity>(TEntity entity)
 
     Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
 
-.. function:: void MarkRemoved<T>(T entity)
+.. function:: void MarkRemoved<T>(TEntity entity)
 
-    Math entity as removed to unit of work. Call ``Commit`` to send changes to data storage.
+    Mark entity as removed from unit of work. Call ``Commit`` to send changes to data storage.
 
-.. function:: void Attach<T>(T entity)
+.. function:: void Attach<TEntity>(TEntity entity)
 
     Attach entity to unit of work. Usually it is the same as attach object to data context.
 
 .. function:: void Commit()
 
-    Send changes to data storage.
+    Save changes to data storage.
 
 IUnitOfWorkFactory
 ------------------
 
-To create unit of work factory should be used.
+``IUnitOfWork`` should be instantiated by this class 
 
 .. function:: IUnitOfWork Create(IsolationLevel isolationLevel)
 

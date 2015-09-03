@@ -22,8 +22,14 @@ CheckConstants
 
 Contains common validation regexp patterns.
 
-.. function:: EmailExpression (regexp)
+.. attribute:: EmailExpression (regexp)
 
-.. function:: WebUrlExpression (regexp)
+    Email regular expression.
 
-.. function:: StripHTMLExpression (regexp)
+.. attribute:: WebUrlExpression (regexp)
+
+    Web url regular expression. Support http and https protocols.
+
+.. attribute:: StripHTMLExpression (regexp)
+
+    Regular expression to remove html tags from string.
