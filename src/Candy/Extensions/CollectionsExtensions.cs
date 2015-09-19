@@ -65,5 +65,21 @@ namespace Candy.Extensions
         {
             return sortOrder == SortOrder.Asc ? source.OrderBy(keySelector, comparer) : source.OrderByDescending(keySelector, comparer);
         }
+
+        /// <summary>
+        /// Get paged enumerable result.
+        /// </summary>
+        /// <typeparam name="T">The type of element.</typeparam>
+        /// <param name="source">Enumerable source to be paginate.</param>
+        /// <param name="page">Page number to select from source.</param>
+        /// <param name="pageSize">Page size.</param>
+        /// <returns>Paged enumerable.</returns>
+        public static Common.PagedEnumerable<T> GetPaged<T>(
+            this IEnumerable<T> source,
+            Int32 page = Common.PagedEnumerable<T>.DefaultCurrentPage,
+            Int32 pageSize = Common.PagedEnumerable<T>.DefaultPageSize)
+        {
+            return Common.PagedEnumerable<T>.Create(source, page, pageSize);
+        }
     }
 }

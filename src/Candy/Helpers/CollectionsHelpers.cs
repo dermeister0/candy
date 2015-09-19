@@ -111,18 +111,5 @@ namespace Candy.Helpers
                 action(item);
             }
         }
-
-        /// <summary>
-        /// Get paged result.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="page"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        public static Common.PagedEnumerable<T> GetPage<T>(IEnumerable<T> source, int page, int pageSize)
-        {
-            return new Common.PagedEnumerable<T>(source.Skip((page - 1) * pageSize).Take(pageSize));
-        }
     }
 }

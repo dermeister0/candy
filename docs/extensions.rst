@@ -10,6 +10,10 @@ CollectionsExtensions
 
     Sort extension to order enumerable by asc or desc.
 
+.. function:: static Common.PagedEnumerable<T> GetPaged<T>(this IEnumerable<T> source, int page, int pageSize)
+
+    Get paged enumeration. See `Common.PagedEnumerable` class for more reference.
+
 DictionaryExtensions
 --------------------
 

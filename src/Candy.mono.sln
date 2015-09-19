@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candy.mono", "Candy\Candy.mono.csproj", "{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}"
@@ -20,14 +20,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Candy\Candy.mono.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 120
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/plain
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

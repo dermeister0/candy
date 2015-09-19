@@ -10,7 +10,7 @@ Contains set of methods based on standard library implementation to work with st
 
     Produces 128-bit hash value of string. PHP-compliant. The security of the MD5 hash function is severely compromised. It is not recommended for password hashing and provided only for backward compatibility.
 
-.. function:: string SHA1(sring str)
+.. function:: string SHA1(string str)
 
     Produces 160-bit hash value of string. The most widely used hasing algorithm. It is not recommended to use it for hashing now:
 
