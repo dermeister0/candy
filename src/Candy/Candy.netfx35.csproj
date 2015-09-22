@@ -64,6 +64,7 @@
     <Compile Include="Common\Event.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\CheckConstants.cs" />
+    <Compile Include="Domain\Implementation\SmtpClientEmailSender.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

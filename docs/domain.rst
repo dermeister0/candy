@@ -6,123 +6,196 @@ The namespace contains set of classes and interfaces that can be used as infrast
 DomainException
 ---------------
 
-Inherit form this class your exceptions related to business logic of your application.
+.. class:: DomainException
+
+    Inherit form this class your exceptions related to business logic of your application.
 
 ValidationException
 -------------------
 
-Inherit from this class all your exceptions related to business logic validation of your application. These messages can be shown to user. ValidationException is a child of ``DomainException``.
+.. class:: ValidationException
+
+    Inherit from this class all your exceptions related to business logic validation of your application. These messages can be shown to user. ValidationException is a child of ``DomainException``.
 
 ILogger
 -------
 
-Logging abstraction to separate your logging infrastructure. For implementation you can use NLog or log4net. The interface is pretty simple and contains following methods:
+.. class:: ILogger
 
-.. function:: void Fatal(string message)
+    Logging abstraction to separate your logging infrastructure. For implementation you can use NLog or log4net. The interface is pretty simple and contains following methods:
 
-.. function:: void Error(string message)
+    .. function:: void Fatal(string message)
 
-.. function:: void Warn(string message)
+        Logs fatal message. Usually after that message application cannot run correctly anymore.
 
-.. function:: void Info(string message)
+    .. function:: void Error(string message)
 
-.. function:: void Debug(string message)
+        Logs error message.
 
-.. function:: void Trace(string message)
+    .. function:: void Warn(string message)
+
+        Logs warning message. Application may run well but unusual action happened.
+
+    .. function:: void Info(string message)
+
+        Logs info message.
+
+    .. function:: void Debug(string message)
+
+        Logs debug message. These messages usually available in debug mode.
+
+    .. function:: void Trace(string message)
+
+        Logs trace message.
+
+.. class:: DummyLogger
+
+    The class is in `Candy.Domain.Implementation` namespace. Provides empty implementation for debug purposes.
+
+.. class:: SmtpClientEmailSender
+
+    The class is in `Candy.Domain.Implementation` namespace. Uses `SmtpClient` to send messages with additional functionality.
+
+    .. attribute:: bool IsAsync
+
+        Is async mode is used.
+
+    .. attribute:: bool ThrowException
+
+        Throw exception outside the class if it occurs during message send.
+
+    .. attribute:: Client
+
+        Current `SmtpClient`.
+
+    .. attribute:: event OnBeforeSend
+
+    Occurs before mail message send.
+
+    .. attribute:: event OnAfterSend
+
+    Occurs after mail message send.
+
+    .. attribute:: event OnError
+
+    Occurs when SmtpException raised during mail message send.
+
+    ..attribute:: IEnumerable<String> ApprovedAddresses
+
+    Gets approved addresses. Emails that do not match to these address patterns will not be sent. All email address are approved by default.
+
+    ..function:: void AddApprovedEmails(String emails)
+
+    Add email address patterns to approve list. `*` can be used. Example:
+
+        .. code-block:: csharp
+
+            // add my personal email and all emails from saritasa domain
+            EmailSender.AddApprovedEmails('personal@gmail.com *@saritasa.com');
 
 IRepository
 -----------
 
-Common repository pattern abstraction. A Repository mediates between the domain and data mapping layers, acting like an in-memory domain object collection.
+.. class:: IRepository
 
-.. function:: IEnumerable<TEntity> GetAll<TEntity>()
+    Common repository pattern abstraction. A Repository mediates between the domain and data mapping layers, acting like an in-memory domain object collection.
 
-    Returns all entities of specified type.
+    .. function:: IEnumerable<TEntity> GetAll<TEntity>()
 
-.. function:: TEntity Get<TEntity>(object id)
+        Returns all entities of specified type.
 
-    Returns specific object by id or null.
+    .. function:: TEntity Get<TEntity>(object id)
 
-.. function:: void Add<TEntity>(TEntity entity)
+        Returns specific object by id or null.
 
-    Add entity to data storage.
+    .. function:: void Add<TEntity>(TEntity entity)
 
-.. function:: void Remove<TEntity>(TEntity entity)
+        Add entity to data storage.
 
-    Remove entity from data storage.
+    .. function:: void Remove<TEntity>(TEntity entity)
+
+        Remove entity from data storage.
 
 ISession
 --------
 
-Session is an unit of work and repository abstraction.
+.. class:: ISession
 
-.. function:: IQueryable<TEntity> GetAll<TEntity>(string include)
+    Session is an unit of work and repository abstraction.
 
-    Return queriable list of specified entities. ``include`` is a set of properties that needs to be autoloaded with query (for example with join sql). You can use comma to specify several properties.
+    .. function:: IQueryable<TEntity> GetAll<TEntity>(string include)
 
-.. function:: TEntity Get<TEntity>(object id)
+        Return queriable list of specified entities. ``include`` is a set of properties that needs to be autoloaded with query (for example with join sql). You can use comma to specify several properties.
 
-    Return entity by id or null.
+    .. function:: TEntity Get<TEntity>(object id)
 
-.. function:: void MarkAdded<TEntity>(TEntity entity)
+        Return entity by id or null.
 
-    Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
+    .. function:: void MarkAdded<TEntity>(TEntity entity)
 
-.. function:: void MarkRemoved<TEntity>(TEntity entity)
+        Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
 
-    Math entity as removed from unit of work. Call `Commit` to send changes to data storage.
+    .. function:: void MarkRemoved<TEntity>(TEntity entity)
 
-.. function:: void Attach<TEntity>(TEntity entity)
+        Math entity as removed from unit of work. Call `Commit` to send changes to data storage.
 
-    Attach entity to unit of work. Usually it is the same as attach object to data context.
+    .. function:: void Attach<TEntity>(TEntity entity)
 
-.. function:: void Commit()
+        Attach entity to unit of work. Usually it is the same as attach object to data context.
 
-    Send changes to data storage.
+    .. function:: void Commit()
+
+        Send changes to data storage.
 
 ISessionFactory
 ---------------
 
-To create ``ISession`` there should be specific session factory.
+.. class:: ISessionFactory
 
-.. function:: ISession Create(IsolationLevel isolationLevel)
+    To create ``ISession`` there should be specific session factory.
 
-    Creates session with specified isolation level.
+    .. function:: ISession Create(IsolationLevel isolationLevel)
 
-.. function:: ISession Create()
+        Creates session with specified isolation level.
 
-    Creates session with default isolation level. Usually read commited.
+    .. function:: ISession Create()
+
+        Creates session with default isolation level. Usually read commited.
 
 IUnitOfWork
 -----------
 
-Unit of work abstraction. Can be used to implement Entity Framwork or NHibernate implementations. The inherit class must implement:
+.. class:: IUnitOfWork
 
-.. function:: void MarkAdded<TEntity>(TEntity entity)
+    Unit of work abstraction. Can be used to implement Entity Framwork or NHibernate implementations. The inherit class must implement:
 
-    Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
+    .. function:: void MarkAdded<TEntity>(TEntity entity)
 
-.. function:: void MarkRemoved<T>(TEntity entity)
+        Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
 
-    Mark entity as removed from unit of work. Call ``Commit`` to send changes to data storage.
+    .. function:: void MarkRemoved<T>(TEntity entity)
 
-.. function:: void Attach<TEntity>(TEntity entity)
+        Mark entity as removed from unit of work. Call ``Commit`` to send changes to data storage.
 
-    Attach entity to unit of work. Usually it is the same as attach object to data context.
+    .. function:: void Attach<TEntity>(TEntity entity)
 
-.. function:: void Commit()
+        Attach entity to unit of work. Usually it is the same as attach object to data context.
 
-    Save changes to data storage.
+    .. function:: void Commit()
+
+        Save changes to data storage.
 
 IUnitOfWorkFactory
 ------------------
 
-``IUnitOfWork`` should be instantiated by this class 
+.. class:: IUnitOfWorkFactory
 
-.. function:: IUnitOfWork Create(IsolationLevel isolationLevel)
+    ``IUnitOfWork`` should be instantiated by this class 
 
-    Creates unit of work with specified isolation level.
+    .. function:: IUnitOfWork Create(IsolationLevel isolationLevel)
 
-.. function:: IUnitOfWork Create()
+        Creates unit of work with specified isolation level.
 
-    Creates unit of work with default isolation level. Usually read commited.
+    .. function:: IUnitOfWork Create()
+
+        Creates unit of work with default isolation level. Usually read commited.

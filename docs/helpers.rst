@@ -6,112 +6,128 @@ Namespace contains helpers implemented as static methods. You can use them like 
 CollectionsHelpers
 ------------------
 
-.. function:: IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(IEnumerable<T> source, int chunkSize)
+.. class:: CollectionsHelpers
 
-.. function:: IEnumerable<T> ChunkSelect<T>(IEnumerable<T> source, int chunkSize)
+    Set of helpers related to collections (`IEnumerable`, `IList`, etc).
 
-.. function:: void Walk<T>(IEnumerable<T> target, Action<T> action)
+    .. function:: IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(IEnumerable<T> source, int chunkSize)
 
-    Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
+    Breaks a list of items into chunks of a specific size and yeilds T items.
 
-        .. code-block:: csharp
+    .. function:: IEnumerable<T> ChunkSelect<T>(IEnumerable<T> source, int chunkSize)
 
-            foreach (var user in Users) {
-                user.FirstName = StringHelpers.Capitalize(user.FirstName);
-            }
+    Breaks a list of items into chunks of a specific size and yeilds T items.
 
-            // can be replaced
+    .. function:: void Walk<T>(IEnumerable<T> target, Action<T> action)
 
-            Users.Walk(u => { u.FirstName = StringHelpers.Capitalize(u.FirstName) });
+        Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
 
-.. function:: IEnumerable<T> Page<T>(IEnumerable<T> source, int page, int pageSize)
+            .. code-block:: csharp
+
+                foreach (var user in Users) {
+                    user.FirstName = StringHelpers.Capitalize(user.FirstName);
+                }
+
+                // can be replaced
+
+                Users.Walk(u => { u.FirstName = StringHelpers.Capitalize(u.FirstName) });
 
 DateTimeHelpers
 ---------------
 
-.. function:: Boolean IsHoliday(DateTime target)
+.. class:: DateTimeHelpers
 
-    Just checkes is this a Saturday or Sunday.
+    .. function:: Boolean IsHoliday(DateTime target)
 
-.. function:: DateTime BeginOfMonth(DateTime target)
+        Just checkes is this a Saturday or Sunday.
 
-    Return begin of month for specified date.
+    .. function:: DateTime BeginOfMonth(DateTime target)
 
-.. function:: DateTime EndOfMonth(DateTime target)
+        Return begin of month for specified date.
 
-    Return end of month for specified date.
+    .. function:: DateTime EndOfMonth(DateTime target)
+
+        Return end of month for specified date.
 
 DictionaryHelpers
 -----------------
 
-.. function:: String AsCommaSeparatedString<TKey, TValue>(IDictionary<TKey, TValue> target)
+.. class:: DictionaryHelpers
 
-    Converts dictionary key-value pairs to stirng. Example:
+    .. function:: String AsCommaSeparatedString<TKey, TValue>(IDictionary<TKey, TValue> target)
 
-    Input: Key=1, Value="abc"; Key=2, Value="bca"
-    Output: 1=abc,2=bca
+        Converts dictionary key-value pairs to stirng. Example:
+
+        Input: Key=1, Value="abc"; Key=2, Value="bca"
+        Output: 1=abc,2=bca
 
 MailHelpers
 -----------
 
-.. function:: void Save(MailMessage message, string fileName)
+.. class:: MailHelpers
 
-    Saves MailMessage to file. There are no standard methods in .NET to save MailMessage to file. The only way to do that is to define ``mailSettings`` in config. This methods uses reflection to call internal methods to save message to file.
+    .. function:: void Save(MailMessage message, string fileName)
+
+        Saves MailMessage to file. There are no standard methods in .NET to save MailMessage to file. The only way to do that is to define ``mailSettings`` in config. This methods uses reflection to call internal methods to save message to file.
 
 RandomHelpers
 -------------
 
-Thread-safe equivalent of System.Random, using just static methods.
+.. class:: RandomHelpers
 
-.. function:: int Next()
+    Thread-safe equivalent of System.Random, using just static methods.
 
-    Returns a nonnegative random number.
+    .. function:: int Next()
 
-.. function:: int Next(int max)
+        Returns a nonnegative random number.
 
-    Returns a nonnegative random number less than the specified maximum.
+    .. function:: int Next(int max)
 
-.. function:: int Next(int min, int max)
+        Returns a nonnegative random number less than the specified maximum.
 
-    Returns a random number within a specified range.
+    .. function:: int Next(int min, int max)
 
-.. function:: double NextDouble()
+        Returns a random number within a specified range.
 
-    Returns a random number between 0.0 and 1.0.
+    .. function:: double NextDouble()
 
-.. function:: void NextBytes(byte[] buffer)
+        Returns a random number between 0.0 and 1.0.
 
-    Fills the elements of a specified array of bytes with random numbers.
+    .. function:: void NextBytes(byte[] buffer)
+
+        Fills the elements of a specified array of bytes with random numbers.
 
 StringHelpers
 -------------
 
-.. function:: string ConvertToSnakeCase(string target)
+.. class:: StringHelpers
 
-    Converts string to snake case string style. Example: HelloWorld -> hello_world.
+    .. function:: string ConvertToSnakeCase(string target)
 
-.. function:: bool IsEmail(string target)
+        Converts string to snake case string style. Example: HelloWorld -> hello_world.
 
-    Returns true if strign is email address. Uses ``CheckConstants.EmailExpression`` regexp to check.
+    .. function:: bool IsEmail(string target)
 
-.. function:: string Truncate(string target, int maxLength)
+        Returns true if strign is email address. Uses ``CheckConstants.EmailExpression`` regexp to check.
 
-    Truncates target string to max length. Useful to do not allow string to exceed specific amount of character.
+    .. function:: string Truncate(string target, int maxLength)
 
-.. function:: string JoinIgnoreEmpty(string separator, params string[] values)
-              string JoinIgnoreEmpty(string separator, IEnumerable<string> values)
+        Truncates target string to max length. Useful to do not allow string to exceed specific amount of character.
 
-.. function:: string WildcardToRegex(sring pattern)
+    .. function:: string JoinIgnoreEmpty(string separator, params string[] values)
+                  string JoinIgnoreEmpty(string separator, IEnumerable<string> values)
 
-    Converts wildcard characters to regexp string. For example `He*ll? -> He\*ll\?`.
+    .. function:: string WildcardToRegex(sring pattern)
 
-.. function:: bool IsNullOrWhiteSpace(string value)
+        Converts wildcard characters to regexp string. For example `He*ll? -> He\*ll\?`.
 
-    This is equivalent of String.IsNullOrWhiteSpace for .NET 3.5 .
+    .. function:: bool IsNullOrWhiteSpace(string value)
 
-.. function:: bool IsNullOrEmpty(string value)
+        This is equivalent of String.IsNullOrWhiteSpace for .NET 3.5 .
 
-    This is equivalent of String.IsNullOrEmpty for .NET 3.5 .
+    .. function:: bool IsNullOrEmpty(string value)
+
+        This is equivalent of String.IsNullOrEmpty for .NET 3.5 .
 
 StringHelpers - Parsing
 -----------------------
@@ -148,10 +164,12 @@ Method Name                                      Output Type  Type Alias
 ``TryParseEnumDefault``                          Enum
 ================================================ ============ ==========
 
-.. function:: T TryParseEnumDefault<T>(string target, T defaultValue)
+.. class:: StringHelpers
 
-    Convert string value to enum value or return default
+    .. function:: T TryParseEnumDefault<T>(string target, T defaultValue)
 
-.. function:: T TryParseEnumDefault<T>(string target, bool ignoreCase, T defaultValue)
+        Convert string value to enum value or return default
 
-    Convert string value to enum value or return default.
+    .. function:: T TryParseEnumDefault<T>(string target, bool ignoreCase, T defaultValue)
+
+        Convert string value to enum value or return default.

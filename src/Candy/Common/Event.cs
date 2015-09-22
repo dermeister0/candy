@@ -11,7 +11,7 @@ namespace Candy.Common
     /// <summary>
     /// Event helpers.
     /// </summary>
-    public static class EventHelpers
+    public static class Event
     {
         /// <summary>
         /// It is null-safe and thread-safe way to raise event.

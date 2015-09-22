@@ -34,7 +34,7 @@ namespace Candy.Tests
         {
             int sender = 10;
             EventArgs eventArgs = new EventArgs();
-            EventHelpers.Raise(eventArgs, sender, ref TestEvent);
+            Event.Raise(eventArgs, sender, ref TestEvent);
 
             if (TestEvent != null)
             {
@@ -52,19 +52,19 @@ namespace Candy.Tests
             Assert.That(b, Is.EqualTo(2));
         }
 
-		[Test]
-		public void TestPagedEnumerable()
-		{
-			int capacity = 250;
+        [Test]
+        public void TestPagedEnumerable()
+        {
+            int capacity = 250;
             IList<int> list = new List<int>(capacity);
-			for (int i = 0; i < capacity; i++)
-			{
-				list.Add(i);
-			}
+            for (int i = 0; i < capacity; i++)
+            {
+                list.Add(i);
+            }
             var pagedList = new PagedEnumerable<int>(list, 10, 10);
-			Assert.That(pagedList.TotalPages, Is.EqualTo(25), "pagedList - incorrect TotalPages");
+            Assert.That(pagedList.TotalPages, Is.EqualTo(25), "pagedList - incorrect TotalPages");
 
-            var pagedList2 = PagedEnumerable<int>.Create(list, 10, 10);
+            var pagedList2 = new PagedEnumerable<int>(list, 10, 10);
             Assert.That(pagedList2.Count(), Is.EqualTo(10), "pagedList2 - incorrect Count");
 
             var pagedList3 = list.GetPaged(13, 25);
@@ -74,6 +74,6 @@ namespace Candy.Tests
             var pagedList4 = list.GetPaged(20, 13);
             Assert.That(pagedList4.TotalPages, Is.EqualTo(20), "pagedList4 - incorrect TotalPages");
             Assert.That(pagedList4.Count(), Is.EqualTo(3), "pagedList4 - incorrect Count");
-		}
+        }
     }
 }

@@ -3,26 +3,24 @@ Common
 
 The common namespace provides classes for exceptions handling and some other methods related to .NET framework.
 
-Event
------
+.. class:: Event
 
-.. function:: void Raise<TEventArgs>(TEventArgs e, object sender, ref EventHandler<TEventArgs> eventDelegate)
+    Event helpers.
 
-    Helps to raise event handlers.
+    .. function:: void Raise<TEventArgs>(TEventArgs e, object sender, ref EventHandler<TEventArgs> eventDelegate)
 
-    If you develop your own class with events it is not handy to raise it. You should check whther it is null. Even in that case your code is not thread safe. This method makes these two checks and calls event. Example:
+        Helps to raise event handlers.
 
-        .. code-block:: csharp
+        If you develop your own class with events it is not handy to raise it. You should check whther it is null. Even in that case your code is not thread safe. This method makes these two checks and calls event. Example:
 
-            // without Candy, not thread safe
-            if (TestEvent != null)
-                TestEvent(sender, eventArgs);
+            .. code-block:: csharp
 
-            // with Candy
-            EventHelpers.Raise(eventArgs, sender, ref TestEvent);
+                // without Candy, not thread safe
+                if (TestEvent != null)
+                    TestEvent(sender, eventArgs);
 
-Exception
----------
+                // with Candy
+                EventHelpers.Raise(eventArgs, sender, ref TestEvent);
 
 .. class:: Exception
 
@@ -35,12 +33,13 @@ Exception
 
             throw new Candy.Common.Exception<InvalidUserException>("test message", innerException);
 
-Objects
--------
+.. class:: Objects
 
-.. function:: static void Swap<T>(ref T item1, ref T item2)
+    Set of helpers related to objects manipulations.
 
-    Swaps two variables by their referencies.
+    .. function:: static void Swap<T>(ref T item1, ref T item2)
+
+        Swaps two variables by their referencies.
 
 PagedEnumerable
 ---------------
@@ -49,15 +48,19 @@ PagedEnumerable
 
     The class helps to make paged enumerables. It wraps current page and page size. If not specified default page is first and default page size is 100. If total pages parameter is below or equal 0 it will be automatically populated with `Count()` method.
 
-.. function:: PagedEnumerable(IEnumerable<T> source, int page, int pageSize, int totalPages)
+    .. function:: PagedEnumerable(IEnumerable<T> source, int page, int pageSize, int totalPages)
 
-    Creates instance of class. There are two examples of usage:
+        Creates instance of class. There are two examples of usage:
 
-        .. code-block:: csharp
+            .. code-block:: csharp
 
-            IEnumerable<string> list = ...
-            // creates a paged list on page 2 where page size is 20
-            PageEnumerable<string> pagedList = PagedEnumerable<string>.Create(list, 2, 20);
-            // another way with extension method
-            pagedList = list.GetPaged(2, 20);
-            Grid.DataSource = pagedList;
+                IEnumerable<string> list = ...
+                // creates a paged list on page 2 where page size is 20
+                PageEnumerable<string> pagedList = new PagedEnumerable<string>(list, 2, 20);
+                // another way with extension method
+                pagedList = list.GetPaged(2, 20);
+                Grid.DataSource = pagedList;
+
+    .. function:: PagedEnumerable<T> Create(IEnumerable<T> pagedSource, int page, int pageSize, int totalPages)
+
+        Creates the instance without any queries. It only fills internal properies.

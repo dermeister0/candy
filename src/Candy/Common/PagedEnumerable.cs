@@ -20,10 +20,10 @@ namespace Candy.Common
         public const Int32 DefaultCurrentPage = 1;
         public const Int32 DefaultPageSize = 100;
 
-        private readonly IEnumerable<T> source;
-        private readonly Int32 totalPages;
-        private readonly Int32 currentPage;
-        private readonly Int32 pageSize;
+        private IEnumerable<T> pagedSource;
+        private Int32 totalPages;
+        private Int32 currentPage;
+        private Int32 pageSize;
 
         /// <summary>
         /// Total pages.
@@ -50,7 +50,14 @@ namespace Candy.Common
         }
 
         /// <summary>
-        /// .ctor
+        /// Internal .ctor
+        /// </summary>
+        internal PagedEnumerable()
+        {
+        }
+
+        /// <summary>
+        /// Creates paged enumerable from source and query source list by page and pageSize.
         /// </summary>
         /// <typeparam name="T">Source type.</typeparam>
         /// <param name="source">Enumerable.</param>
@@ -64,29 +71,39 @@ namespace Candy.Common
             Int32 totalPages = -1)
         {
             Check.IsNotNull(source, "source");
-            Check.IsNotNegativeOrZero(pageSize, "pageSize");
             Check.IsNotNegativeOrZero(page, "page");
+            Check.IsNotNegativeOrZero(pageSize, "pageSize");
 
-            this.source = source;
             this.currentPage = page;
             this.pageSize = pageSize;
+            this.pagedSource = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();;
             this.totalPages = totalPages > 0 ? totalPages : GetTotalPages(source, PageSize);
         }
 
         /// <summary>
-        /// Create paged enumerable from source and query source list by page and pageSize.
+        /// Creates the instance without any queries. It only fills internal properies.
         /// </summary>
         /// <typeparam name="T">Source type.</typeparam>
         /// <param name="source">Enumerable.</param>
         /// <param name="page">Page to select. Default is first.</param>
         /// <param name="pageSize">Page size. Default is 100.</param>
         public static PagedEnumerable<T> Create(
-            IEnumerable<T> source,
+            IEnumerable<T> pagedSource,
             Int32 page = DefaultCurrentPage,
-            Int32 pageSize = DefaultPageSize)
+            Int32 pageSize = DefaultPageSize,
+            Int32 totalPages = -1)
         {
-            var filteredSource = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedEnumerable<T>(filteredSource, page, pageSize, GetTotalPages(source, pageSize));
+            Check.IsNotNull(pagedSource, "pagedSource");
+            Check.IsNotNegativeOrZero(page, "page");
+            Check.IsNotNegativeOrZero(pageSize, "pageSize");
+
+            return new PagedEnumerable<T>()
+            {
+                pagedSource = pagedSource,
+                currentPage = page,
+                pageSize = pageSize,
+                totalPages = totalPages,
+            };
         }
 
         private static Int32 GetTotalPages(IEnumerable<T> source, Int32 pageSize)
@@ -100,7 +117,7 @@ namespace Candy.Common
         /// <returns>Enumerator.</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return this.source.GetEnumerator();
+            return this.pagedSource.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

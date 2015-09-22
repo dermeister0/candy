@@ -10,9 +10,10 @@ Contains set of methods to write less code to defined method pre-conditions. Exa
 
     .. code-block:: csharp
 
-        void CreateUser(User user, int score) {
-            Check.IsNotNull(user, 'user');
-            Check.IsNotNegative(score, 'score');
+        void CreateUser(User user, int score)
+        {
+            Check.IsNotNull(user, "user");
+            Check.IsNotNegative(score, "score");
         }
 
 There are methods implemented: ``IsNotEmpty``, ``IsNotOutOfLength``, ``IsNotNull``, ``IsNotNegative``, ``IsNotNegativeOrZero``, ``IsNotInPast``, ``IsNotInFuture``, ``IsNotInvalidEmail``.
@@ -20,16 +21,18 @@ There are methods implemented: ``IsNotEmpty``, ``IsNotOutOfLength``, ``IsNotNull
 CheckConstants
 --------------
 
-Contains common validation regexp patterns.
+.. class:: CheckConstants
 
-.. attribute:: EmailExpression (regexp)
+    Contains common validation regexp patterns.
 
-    Email regular expression.
+    .. attribute:: EmailExpression (regexp)
 
-.. attribute:: WebUrlExpression (regexp)
+        Email regular expression.
 
-    Web url regular expression. Support http and https protocols.
+    .. attribute:: WebUrlExpression (regexp)
 
-.. attribute:: StripHTMLExpression (regexp)
+        Web url regular expression. Support http and https protocols.
 
-    Regular expression to remove html tags from string.
+    .. attribute:: StripHTMLExpression (regexp)
+
+        Regular expression to remove html tags from string.
