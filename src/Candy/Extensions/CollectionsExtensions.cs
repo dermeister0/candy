@@ -79,7 +79,7 @@ namespace Candy.Extensions
             Int32 page = Common.PagedEnumerable<T>.DefaultCurrentPage,
             Int32 pageSize = Common.PagedEnumerable<T>.DefaultPageSize)
         {
-            return Common.PagedEnumerable<T>.Create(source, page, pageSize);
+            return new Common.PagedEnumerable<T>(source, page, pageSize);
         }
     }
 }
