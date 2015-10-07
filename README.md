@@ -12,7 +12,9 @@ https://candynet.readthedocs.org
 Installation
 ------------
 
-TODO:
+```
+PM> Install-Package Candy
+```
 
 Overview
 --------
