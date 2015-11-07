@@ -88,7 +88,7 @@ ILogger
 
     Add email address patterns to approve list. `*` can be used. Example:
 
-        .. code-block:: csharp
+        .. code-block:: c#
 
             // add my personal email and all emails from saritasa domain
             EmailSender.AddApprovedEmails('personal@gmail.com *@saritasa.com');

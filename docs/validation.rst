@@ -8,7 +8,7 @@ Check.Argument
 
 Contains set of methods to write less code to defined method pre-conditions. Example:
 
-    .. code-block:: csharp
+    .. code-block:: c#
 
         void CreateUser(User user, int score)
         {

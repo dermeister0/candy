@@ -53,7 +53,7 @@ StringExtensions
 
         With this extension you can easly append parameters to any string.
 
-            .. code-block:: csharp
+            .. code-block:: c#
 
                 // without Candy:
                 Console.WriteLine(String.Format("The sum of {1} and {2} is {3}", a, b, sum));

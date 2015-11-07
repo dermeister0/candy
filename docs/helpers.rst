@@ -22,7 +22,7 @@ CollectionsHelpers
 
         Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
 
-            .. code-block:: csharp
+            .. code-block:: c#
 
                 foreach (var user in Users) {
                     user.FirstName = StringHelpers.Capitalize(user.FirstName);
@@ -134,7 +134,7 @@ StringHelpers - Parsing
 
 Sometimes when we try to convert some type from string to another one (`int.Parse` for example) we don't need to know if is it possible to do that or not. Having default value in that case is good for us. This set of methods `TryParseXDefault` try to parse input value and if it is not possible return default one.
 
-    .. code-block:: csharp
+    .. code-block:: c#
 
         // with standard library:
         int val = 0;

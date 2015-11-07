@@ -13,7 +13,7 @@ The common namespace provides classes for exceptions handling and some other met
 
         If you develop your own class with events it is not handy to raise it. You should check whther it is null. Even in that case your code is not thread safe. This method makes these two checks and calls event. Example:
 
-            .. code-block:: csharp
+            .. code-block:: c#
 
                 // without Candy, not thread safe
                 if (TestEvent != null)
@@ -26,8 +26,8 @@ The common namespace provides classes for exceptions handling and some other met
 
     Usually it is not easy to create custom Exception. You should implement at least 3 default constructors, take care of serialization and custom arguments. Exception makes it easier to do:
 
-        .. code-block:: csharp
-        
+        .. code-block:: c#
+
             [Serializable]
             private class InvalidUserException : Common.ExceptionArgs { }
 
@@ -52,7 +52,7 @@ PagedEnumerable
 
         Creates instance of class. There are two examples of usage:
 
-            .. code-block:: csharp
+            .. code-block:: c#
 
                 IEnumerable<string> list = ...
                 // creates a paged list on page 2 where page size is 20
