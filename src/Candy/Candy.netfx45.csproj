@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Calculations\Hashes.cs" />
     <Compile Include="Calculations\PasswordGenerator.cs" />
+    <Compile Include="Common\Flow.cs" />
     <Compile Include="Common\PagedEnumerable.cs" />
     <Compile Include="Domain\IEmailSender.cs" />
     <Compile Include="Domain\ILogger.cs" />

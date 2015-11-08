@@ -7,10 +7,11 @@ namespace Candy.Tests
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using NUnit.Framework;
-    using Candy.Common;
-    using Candy.Extensions;
+    using Common;
+    using Extensions;
 
     [TestFixture]
     public class CommonTest
@@ -74,6 +75,49 @@ namespace Candy.Tests
             var pagedList4 = list.GetPaged(20, 13);
             Assert.That(pagedList4.TotalPages, Is.EqualTo(20), "pagedList4 - incorrect TotalPages");
             Assert.That(pagedList4.Count(), Is.EqualTo(3), "pagedList4 - incorrect Count");
+        }
+
+        /// <summary>
+        /// Custom exception for tests only.
+        /// </summary>
+        private class CustomException : ApplicationException
+        {
+            public CustomException()
+            {
+            }
+        }
+
+        private void CustomMethodNoReturn()
+        {
+        }
+
+        private Int32 CustomMethodReturn()
+        {
+            return 123;
+        }
+
+        private Int32 CustomMethodReturnWithCustomException()
+        {
+            throw new CustomException();
+        }
+
+        [Test]
+        public void TestFlowRepeat()
+        {
+            Flow.Repeat<Int32>(CustomMethodReturn);
+            Flow.Repeat<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
+
+            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException));
+            Assert.Throws<CustomException>(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null,
+                new[] { typeof(InvalidOperationException) }));
+            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null,
+               new[] { typeof(CustomException) }));
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new [] { typeof(CustomException) });
+            stopwatch.Stop();
+            Assert.That(stopwatch.ElapsedMilliseconds, Is.GreaterThanOrEqualTo(150));
         }
     }
 }

@@ -8,14 +8,13 @@ namespace Candy.Domain.Implementation
     using System;
     using System.Linq;
     using System.Collections.Generic;
-    using System.IO;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
-    using Candy.Common;
-    using Candy.Domain;
-    using Candy.Extensions;
-    using Candy.Helpers;
-    using Candy.Validation;
+    using Common;
+    using Domain;
+    using Extensions;
+    using Helpers;
+    using Validation;
 
     /// <summary>
     /// Send email using smtp protocol.
