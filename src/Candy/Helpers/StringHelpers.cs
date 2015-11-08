@@ -27,7 +27,16 @@ namespace Candy.Helpers
         /// </summary>
         public static String ConvertToSnakeCase(String target)
         {
+#if !PORTABLE
             return Concat(target.Select((ch, index) => index > 0 && Char.IsUpper(ch) ? "_" + ch.ToString() : ch.ToString()));
+#else
+            StringBuilder sb = new StringBuilder(target.Length + 4);
+            for (Int32 index = 0; index < target.Length; index++)
+            {
+                sb.Append(index > 0 && Char.IsUpper(target[index]) ? "_" + target[index].ToString() : target[index].ToString());
+            }
+            return sb.ToString();
+#endif
         }
 
         /// <summary>
@@ -528,6 +537,6 @@ namespace Candy.Helpers
 #endif
         }
 
-        #endregion
+#endregion
     }
 }

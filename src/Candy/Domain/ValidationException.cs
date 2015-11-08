@@ -10,7 +10,9 @@ namespace Candy.Domain
     /// <summary>
     /// Validation exception.
     /// </summary>
+#if !PORTABLE
     [Serializable]
+#endif
     public class ValidationException : DomainException
     {
         /// <summary>

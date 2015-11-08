@@ -12,6 +12,7 @@ namespace Candy.Tests
     [TestFixture]
     public class CalculationsTest
     {
+#if !PORTABLE
         [Test]
         public void TestSecurityHashes()
         {
@@ -30,6 +31,7 @@ namespace Candy.Tests
                 Is.EqualTo("a336f671080fbf4f2a230f313560ddf0d0c12dfcf1741e49e8722a234673037dc493caa8d291d8025f71089d63cea809cc8ae53e5b17054806837dbe4099c4ca".ToUpper()));
             Assert.That(Calculations.Hashes.CRC32(@"This is test string."), Is.EqualTo(0xab6a9ba9));
         }
+#endif
 
         [Test]
         public void TestPasswordGenerations()

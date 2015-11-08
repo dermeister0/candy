@@ -23,7 +23,9 @@ namespace Candy.Common
             var temp = Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;
+    #if !PORTABLE
             Thread.MemoryBarrier();
+    #endif
 #endif
             if (temp != null)
             {

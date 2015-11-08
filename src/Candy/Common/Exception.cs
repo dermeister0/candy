@@ -7,12 +7,16 @@ namespace Candy.Common
 {
     using System;
     using System.Runtime.Serialization;
+#if !PORTABLE
     using System.Security.Permissions;
+#endif
 
     /// <summary>
     /// Inherit from this class to have custom exception arguments.
     /// </summary>
+#if !PORTABLE
     [Serializable]
+#endif
     public abstract class ExceptionArgs
     {
         /// <summary>
@@ -30,8 +34,14 @@ namespace Candy.Common
     /// public sealed class InvalidUserException : BaseExceptionArgs { }.
     /// </summary>
     /// <typeparam name="TExceptionArgs">Custom exception arguments type.</typeparam>
+#if !PORTABLE
     [Serializable]
+#endif
+#if !PORTABLE
     public sealed class Exception<TExceptionArgs> : Exception, ISerializable where TExceptionArgs : ExceptionArgs
+#else
+    public sealed class Exception<TExceptionArgs> : Exception where TExceptionArgs : ExceptionArgs
+#endif
     {
         private const String CArgs = "Args"; // for deserialization
         private readonly TExceptionArgs args;
@@ -76,6 +86,7 @@ namespace Candy.Common
             this.args = args;
         }
 
+#if !PORTABLE
         /// <summary>
         /// .ctor for serialization.
         /// </summary>
@@ -98,6 +109,7 @@ namespace Candy.Common
             info.AddValue(CArgs, this.args);
             base.GetObjectData(info, context);
         }
+#endif
 
         /// <summary>
         /// Equals override.

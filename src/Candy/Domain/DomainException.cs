@@ -10,8 +10,10 @@ namespace Candy.Domain
     /// <summary>
     /// Exception occurs in domain part of application. It can be logic or validation exception.
     /// </summary>
+#if !PORTABLE
     [Serializable]
-    public class DomainException : ApplicationException
+#endif
+    public class DomainException : Exception
     {
         /// <summary>
         /// .ctor

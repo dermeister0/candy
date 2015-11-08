@@ -76,7 +76,7 @@ namespace Candy.Common
 
             this.currentPage = page;
             this.pageSize = pageSize;
-            this.pagedSource = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();;
+            this.pagedSource = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             this.totalPages = totalPages > 0 ? totalPages : GetTotalPages(source, PageSize);
         }
 

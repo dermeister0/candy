@@ -16,6 +16,7 @@ namespace Candy.Extensions
     /// </summary>
     public static class EnumExtensions
     {
+#if !PORTABLE
         /// <summary>
         /// Gets the value of Description attribute.
         /// </summary>
@@ -42,6 +43,7 @@ namespace Candy.Extensions
 
             return attributes.Any() ? attributes.First().Description : target.ToString();
         }
+#endif
 
 #if NET3_5
         public static Boolean HasFlag(this Enum target, Enum flag)

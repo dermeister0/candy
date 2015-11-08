@@ -16,7 +16,9 @@ namespace Candy.Tests
     [TestFixture]
     public class CommonTest
     {
+#if !PORTABLE
         [Serializable]
+#endif
         private class InvalidUserException : Common.ExceptionArgs
         {
         }
@@ -80,7 +82,7 @@ namespace Candy.Tests
         /// <summary>
         /// Custom exception for tests only.
         /// </summary>
-        private class CustomException : ApplicationException
+        private class CustomException : Exception
         {
             public CustomException()
             {
@@ -108,14 +110,12 @@ namespace Candy.Tests
             Flow.Repeat<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
 
             Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException));
-            Assert.Throws<CustomException>(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null,
-                new[] { typeof(InvalidOperationException) }));
-            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null,
-               new[] { typeof(CustomException) }));
+            Assert.Throws<CustomException>(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(InvalidOperationException) }));
+            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(CustomException) }));
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new [] { typeof(CustomException) });
+            Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
             stopwatch.Stop();
             Assert.That(stopwatch.ElapsedMilliseconds, Is.GreaterThanOrEqualTo(150));
         }

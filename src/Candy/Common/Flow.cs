@@ -6,13 +6,16 @@
 namespace Candy.Common
 {
     using System;
-    
+#if PORTABLE
+    using System.Reflection;
+#endif
+
     /// <summary>
     /// Provides methods to control execution flow.
     /// </summary>
     public class Flow
     {
-        static internal Type[] AnyExcepton = new Type[] { typeof(Exception) };
+        private static Type[] anyExcepton = new Type[] { typeof(Exception) };
 
         /// <summary>
         /// Every call of action retries up to numberOfTries times if any subclass of exceptions
@@ -26,7 +29,7 @@ namespace Candy.Common
         {
             if (exceptionsTypes == null || exceptionsTypes.Length == 0)
             {
-                exceptionsTypes = Flow.AnyExcepton;
+                exceptionsTypes = Flow.anyExcepton;
             }
             if (delay == null)
             {
@@ -45,15 +48,25 @@ namespace Candy.Common
                     Type executedExceptionType = executedException.GetType();
                     foreach (var exceptionType in exceptionsTypes)
                     {
+#if PORTABLE
+                        if (executedExceptionType.Equals(exceptionType) || executedExceptionType.GetTypeInfo().IsSubclassOf(exceptionType))
+#else
                         if (executedExceptionType.Equals(exceptionType) || executedExceptionType.IsSubclassOf(exceptionType))
+#endif
                         {
                             isSubclass = true;
                             break;
                         }
                     }
                     if (isSubclass == false)
+                    {
                         throw;
+                    }
+#if PORTABLE
+                    System.Threading.Tasks.Task.Delay(delay.Value.Milliseconds).Wait();
+#else
                     System.Threading.Thread.Sleep(delay.Value.Milliseconds);
+#endif
                 }
             }
             return default(T);

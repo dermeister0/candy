@@ -10,7 +10,9 @@ namespace Candy.Calculations
     using System.Security;
     using System.Text;
     using System.Text.RegularExpressions;
+#if !PORTABLE
     using System.Security.Cryptography;
+#endif
     using Validation;
     using Extensions;
     using Helpers;
@@ -112,8 +114,12 @@ namespace Candy.Calculations
         /// <summary>
         /// Instance of random generation class.
         /// </summary>
+#if !PORTABLE
         public static RandomNumberGenerator RandomService { get; protected set; }
-        
+#else
+        public static Random RandomService { get; protected set; }
+#endif
+
         /// <summary>
         /// Lock object for RandomService.
         /// </summary>
@@ -202,7 +208,11 @@ namespace Candy.Calculations
         /// </summary>
         static PasswordGenerator()
         {
+#if !PORTABLE
             RandomService = System.Security.Cryptography.RandomNumberGenerator.Create();
+#else
+            RandomService = new Random();
+#endif
         }
 
         /// <summary>
@@ -250,6 +260,7 @@ namespace Candy.Calculations
             return sb.ToString();
         }
 
+#if !PORTABLE
         /// <summary>
         /// Generates new password to SecureString.
         /// </summary>
@@ -277,6 +288,7 @@ namespace Candy.Calculations
 
             return secureString;
         }
+#endif
 
         /// <summary>
         /// Estimate password strength. See documentation for more details.
@@ -599,14 +611,18 @@ namespace Candy.Calculations
         /// </summary>
         /// <param name="maxValue">Maximum value for number.</param>
         /// <returns>The random number between zero and maxValue.</returns>
-        private static int GetNextRandom(int maxValue)
+        private static Int32 GetNextRandom(Int32 maxValue)
         {
+#if !PORTABLE
             byte[] bytes = new byte[4];
             lock (randomServiceLock)
             {
                 RandomService.GetNonZeroBytes(bytes);
             }
             return (int)Math.Round((double)(BitConverter.ToUInt32(bytes, 0) / UInt32.MaxValue) * (maxValue - 1));
+#else
+            return RandomService.Next(maxValue);
+#endif
         }
     }
 }

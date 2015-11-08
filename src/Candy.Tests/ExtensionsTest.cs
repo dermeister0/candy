@@ -14,7 +14,7 @@ namespace Candy.Tests
     public class ExtensionsTest
     {
         [Test]
-        public void FormatTest()
+        public void TestFormat()
         {
             Assert.That("{0} + {1} = {2}".FormatWith(2, 2, 4), Is.EqualTo("2 + 2 = 4"));
         }
