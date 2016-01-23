@@ -1,2 +1,13 @@
+0.3.0
+[+] Big refactoring.
+[+] Added Domain.NotFoundException .
+[-] Removed ISession.
+[*] Updated IUnitOfWork with two additional methods to get data.
+[*] Renamed all string parse functions to ParseDefault.
+[-] Removed DictionaryHelpers.AsCommaSeparatedString .
+[-] Removed *Helpers classes, merged everything to *Extensions.
+[-] Removed RandomHelpers.
+[-] Removed Exception class.
+
 0.1.0
 [+] Initial release.

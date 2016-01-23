@@ -3,21 +3,20 @@ Domain
 
 The namespace contains set of classes and interfaces that can be used as infrastructure for your project. You can use these abstractions if you follow Domain Driver Design approach and want to keep Persistence Ignorance.
 
-DomainException
----------------
-
 .. class:: DomainException
 
     Inherit form this class your exceptions related to business logic of your application.
 
-ValidationException
--------------------
+
+.. class:: NotFoundException
+
+    Raise if the entity was not found in set of objects by key. Inherits from NotFoundException.
 
 .. class:: ValidationException
 
     Inherit from this class all your exceptions related to business logic validation of your application. These messages can be shown to user. ValidationException is a child of ``DomainException``.
 
-ILogger
+Logging
 -------
 
 .. class:: ILogger
@@ -70,23 +69,23 @@ ILogger
 
     .. attribute:: event OnBeforeSend
 
-    Occurs before mail message send.
+        Occurs before mail message send.
 
     .. attribute:: event OnAfterSend
 
-    Occurs after mail message send.
+        Occurs after mail message send.
 
     .. attribute:: event OnError
 
-    Occurs when SmtpException raised during mail message send.
+        Occurs when SmtpException raised during mail message send.
 
-    ..attribute:: IEnumerable<String> ApprovedAddresses
+    .. attribute:: IEnumerable<String> ApprovedAddresses
 
-    Gets approved addresses. Emails that do not match to these address patterns will not be sent. All email address are approved by default.
+        Gets approved addresses. Emails that do not match to these address patterns will not be sent. All email address are approved by default.
 
-    ..function:: void AddApprovedEmails(String emails)
+    .. function:: void AddApprovedEmails(String emails)
 
-    Add email address patterns to approve list. `*` can be used. Example:
+        Add email address patterns to approve list. `*` can be used. Example:
 
         .. code-block:: c#
 
@@ -116,12 +115,12 @@ IRepository
 
         Remove entity from data storage.
 
-ISession
---------
+IUnitOfWork
+-----------
 
-.. class:: ISession
+.. class:: IUnitOfWork
 
-    Session is an unit of work and repository abstraction.
+    Unit of work abstraction. Can be used to implement Entity Framwork or NHibernate implementations. The inherit class must implement:
 
     .. function:: IQueryable<TEntity> GetAll<TEntity>(string include)
 
@@ -130,44 +129,6 @@ ISession
     .. function:: TEntity Get<TEntity>(object id)
 
         Return entity by id or null.
-
-    .. function:: void MarkAdded<TEntity>(TEntity entity)
-
-        Mark entity as added to unit of work. Call ``Commit`` to send changes to data storage.
-
-    .. function:: void MarkRemoved<TEntity>(TEntity entity)
-
-        Math entity as removed from unit of work. Call `Commit` to send changes to data storage.
-
-    .. function:: void Attach<TEntity>(TEntity entity)
-
-        Attach entity to unit of work. Usually it is the same as attach object to data context.
-
-    .. function:: void Commit()
-
-        Send changes to data storage.
-
-ISessionFactory
----------------
-
-.. class:: ISessionFactory
-
-    To create ``ISession`` there should be specific session factory.
-
-    .. function:: ISession Create(IsolationLevel isolationLevel)
-
-        Creates session with specified isolation level.
-
-    .. function:: ISession Create()
-
-        Creates session with default isolation level. Usually read commited.
-
-IUnitOfWork
------------
-
-.. class:: IUnitOfWork
-
-    Unit of work abstraction. Can be used to implement Entity Framwork or NHibernate implementations. The inherit class must implement:
 
     .. function:: void MarkAdded<TEntity>(TEntity entity)
 

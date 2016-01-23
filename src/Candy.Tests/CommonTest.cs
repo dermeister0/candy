@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2015, Saritasa. All rights reserved.
+// Copyright (c) 2015-2016, Saritasa. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 //
 
@@ -10,34 +10,18 @@ namespace Candy.Tests
     using System.Diagnostics;
     using System.Linq;
     using NUnit.Framework;
-    using Common;
-    using Extensions;
 
     [TestFixture]
     public class CommonTest
     {
-#if !PORTABLE
-        [Serializable]
-#endif
-        private class InvalidUserException : Common.ExceptionArgs
-        {
-        }
-
         private event EventHandler<EventArgs> TestEvent;
-
-        [Test]
-        [ExpectedException(typeof(Exception<InvalidUserException>), ExpectedMessage = "test")]
-        public void TestExceptionHelperCreationAndThrowing()
-        {
-            throw new Exception<InvalidUserException>("test");
-        }
 
         [Test]
         public void TestEventCall()
         {
             int sender = 10;
             EventArgs eventArgs = new EventArgs();
-            Event.Raise(eventArgs, sender, ref TestEvent);
+            Flow.Raise(eventArgs, sender, ref TestEvent);
 
             if (TestEvent != null)
             {
@@ -48,8 +32,7 @@ namespace Candy.Tests
         [Test]
         public void TestSwap()
         {
-            int a = 2;
-            int b = 5;
+            int a = 2, b = 5;
             Objects.Swap(ref a, ref b);
             Assert.That(a, Is.EqualTo(5));
             Assert.That(b, Is.EqualTo(2));
@@ -106,16 +89,16 @@ namespace Candy.Tests
         [Test]
         public void TestFlowRepeat()
         {
-            Flow.Repeat<Int32>(CustomMethodReturn);
-            Flow.Repeat<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
+            Flow.Retry<Int32>(CustomMethodReturn);
+            Flow.Retry<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
 
-            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException));
-            Assert.Throws<CustomException>(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(InvalidOperationException) }));
-            Assert.DoesNotThrow(() => Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(CustomException) }));
+            Assert.DoesNotThrow(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException));
+            Assert.Throws<CustomException>(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(InvalidOperationException) }));
+            Assert.DoesNotThrow(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(CustomException) }));
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Flow.Repeat<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
+            Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
             stopwatch.Stop();
             Assert.That(stopwatch.ElapsedMilliseconds, Is.GreaterThanOrEqualTo(150));
         }

@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2015, Saritasa. All rights reserved.
+// Copyright (c) 2015-2016, Saritasa. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 //
 
@@ -10,11 +10,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Candy")]
-[assembly: AssemblyDescription("Useful extensions and helpers.")]
+[assembly: AssemblyDescription("Useful .NET extensions")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Candy")]
-[assembly: AssemblyCopyright("Copyright © Candy 2015")]
+[assembly: AssemblyCopyright("Copyright © Candy 2015-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 [assembly: Guid("242079c0-d138-46bc-b29d-aa423b021dbc")]
 #endif
 
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyFileVersion("0.2.0.0")]
+[assembly: AssemblyVersion("0.3.0.0")]
+[assembly: AssemblyFileVersion("0.3.0.0")]
 
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1634:FileHeaderMustShowCopyright", Justification = "Reviewed.")]

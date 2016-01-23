@@ -3,22 +3,20 @@
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 //
 
-namespace Candy.Domain.Implementation
+namespace Candy.Domain.Interfaces
 {
+    using System;
     using System.Net.Mail;
-    using Domain.Interfaces;
 
     /// <summary>
-    /// Empty email sender. Can be used for testing.
+    /// Email sender interface.
     /// </summary>
-    public class DummyEmailSender : IEmailSender
+    public interface IEmailSender
     {
         /// <summary>
         /// Sends the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
-        public void Send(MailMessage message)
-        {
-        }
+        void Send(MailMessage message);
     }
 }

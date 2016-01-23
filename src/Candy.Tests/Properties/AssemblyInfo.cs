@@ -1,5 +1,5 @@
 ﻿//
-// Copyright (c) 2015, Saritasa. All rights reserved.
+// Copyright (c) 2015-2016, Saritasa. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 //
 
@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Candy.Tests")]
-[assembly: AssemblyCopyright("Copyright © Candy 2015")]
+[assembly: AssemblyCopyright("Copyright © Candy 2015-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

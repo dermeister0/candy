@@ -1,8 +1,9 @@
 ﻿//
-// Copyright (c) 2015, Saritasa. All rights reserved.
+// Copyright (c) 2015-2016, Saritasa. All rights reserved.
 // Licensed under the BSD license. See LICENSE file in the project root for full license information.
 //
 
+#if !PORTABLE
 namespace Candy.Domain.Implementation
 {
     using System;
@@ -10,11 +11,7 @@ namespace Candy.Domain.Implementation
     using System.Collections.Generic;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
-    using Common;
-    using Domain;
-    using Extensions;
-    using Helpers;
-    using Validation;
+    using Domain.Interfaces;
 
     /// <summary>
     /// Send email using smtp protocol.
@@ -132,7 +129,7 @@ namespace Candy.Domain.Implementation
 
             if (mailMessage.To.Any() || mailMessage.CC.Any() || mailMessage.Bcc.Any())
             {
-                Event.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnBeforeSend);
+                Flow.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnBeforeSend);
                 try
                 {
                     if (async)
@@ -142,14 +139,16 @@ namespace Candy.Domain.Implementation
                     else
                     {
                         Client.Send(mailMessage);
-                        Event.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnAfterSend);
+                        Flow.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnAfterSend);
                     }
                 }
                 catch (SmtpException)
                 {
-                    Event.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnError);
+                    Flow.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnError);
                     if (this.throwException)
+                    {
                         throw;
+                    }
                 }
             }
         }
@@ -166,7 +165,7 @@ namespace Candy.Domain.Implementation
                 bool match = false;
                 foreach (var pattern in approvedAddresses)
                 {
-                    if (Regex.IsMatch(address.Address, StringHelpers.WildcardToRegex(pattern)))
+                    if (Regex.IsMatch(address.Address, StringExtensions.WildcardToRegex(pattern)))
                     {
                         match = true;
                     }
@@ -195,12 +194,13 @@ namespace Candy.Domain.Implementation
 
             if (e.Error != null)
             {
-                Event.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnError);
+                Flow.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnError);
             }
             else
             {
-                Event.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnAfterSend);
+                Flow.Raise(new EmailSenderEventArgs(mailMessage), this, ref OnAfterSend);
             }
         }
     }
 }
+#endif
