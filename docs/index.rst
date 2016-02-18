@@ -12,7 +12,6 @@ Table of Contents
     :maxdepth: 1
 
     check
-    domain
     extensions
     flow
     objects
