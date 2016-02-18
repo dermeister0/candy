@@ -16,10 +16,17 @@ namespace Candy
     /// <typeparam name="T">Source type.</typeparam>
     public class PagedEnumerable<T> : IEnumerable<T>
     {
+        /// <summary>
+        /// The default current page.
+        /// </summary>
         public const Int32 DefaultCurrentPage = 1;
+
+        /// <summary>
+        /// The default size of the page.
+        /// </summary>
         public const Int32 DefaultPageSize = 100;
 
-        private IEnumerable<T> pagedSource;
+        private IEnumerable<T> source;
         private Int32 totalPages;
         private Int32 currentPage;
         private Int32 pageSize;
@@ -75,7 +82,7 @@ namespace Candy
 
             this.currentPage = page;
             this.pageSize = pageSize;
-            this.pagedSource = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            this.source = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
             this.totalPages = totalPages > 0 ? totalPages : GetTotalPages(source, PageSize);
         }
 
@@ -86,19 +93,20 @@ namespace Candy
         /// <param name="source">Enumerable.</param>
         /// <param name="page">Page to select. Default is first.</param>
         /// <param name="pageSize">Page size. Default is 100.</param>
+        /// <param name="totalPages">Total pages. If below zero it will be calculated.</param>
         public static PagedEnumerable<T> Create(
-            IEnumerable<T> pagedSource,
+            IEnumerable<T> source,
             Int32 page = DefaultCurrentPage,
             Int32 pageSize = DefaultPageSize,
             Int32 totalPages = -1)
         {
-            Check.IsNotNull(pagedSource, "pagedSource");
+            Check.IsNotNull(source, "source");
             Check.IsNotNegativeOrZero(page, "page");
             Check.IsNotNegativeOrZero(pageSize, "pageSize");
 
             return new PagedEnumerable<T>()
             {
-                pagedSource = pagedSource,
+                source = source,
                 currentPage = page,
                 pageSize = pageSize,
                 totalPages = totalPages,
@@ -116,7 +124,7 @@ namespace Candy
         /// <returns>Enumerator.</returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return this.pagedSource.GetEnumerator();
+            return this.source.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

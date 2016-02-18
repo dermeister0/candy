@@ -10,6 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/krasninja/candy/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A collect of practical tools and extensions to make development easier.</description>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2015-2016</copyright>
+    <tags>helpers extensions</tags>
   </metadata>
 </package>

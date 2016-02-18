@@ -10,6 +10,9 @@ namespace Candy
     using System.Globalization;
     using System.Text;
 
+    /// <summary>
+    /// Shortcuts for hash generation to string.
+    /// </summary>
     public static class Security
     {
 #if !PORTABLE
@@ -24,7 +27,7 @@ namespace Candy
             Byte[] bytes = Encoding.UTF8.GetBytes(target);
             bytes = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(bytes);
             var sb = new StringBuilder();
-            foreach (byte b in bytes)
+            foreach (Byte b in bytes)
             {
                 sb.Append(b.ToString("x2", CultureInfo.InvariantCulture).ToLowerInvariant());
             }
@@ -135,15 +138,15 @@ namespace Candy
         [CLSCompliant(false)]
         public static UInt64 CRC32(String target)
         {
-            unchecked 
+            unchecked
             {
-                uint crc = (uint)(((uint)0) ^ (-1));
+                UInt32 crc = (UInt32)(((UInt32)0) ^ (-1));
                 var len = target.Length;
                 for (var i = 0; i < len; i++)
                 {
-                    crc = (crc >> 8) ^ Crc32Table[(crc ^ (byte)target[i]) & 0xFF];
+                    crc = (crc >> 8) ^ Crc32Table[(crc ^ (Byte)target[i]) & 0xFF];
                 }
-                crc = (uint)(crc ^ (-1));
+                crc = (UInt32)(crc ^ (-1));
 
                 return crc;
             }

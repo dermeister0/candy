@@ -24,7 +24,8 @@ namespace Candy
         /// </summary>
         /// <param name="action">Action to execute.</param>
         /// <param name="numberOfTries">Number of tries. Default is 3.</param>
-        /// <param name="exceptions">Set of exceptions on which repeat occures. If null retry will appear on any exception.</param>
+        /// <param name="delay">Delays between action calls. Default is none.</param>
+        /// <param name="exceptionsTypes">Set of exceptions on which repeat occures. If null retry will appear on any exception.</param>
         /// <returns>Specified user type.</returns>
         public static T Retry<T>(Func<T> action, Int32 numberOfTries = 3, TimeSpan? delay = null, params Type[] exceptionsTypes)
         {
@@ -79,7 +80,8 @@ namespace Candy
         /// </summary>
         /// <param name="action">Action to execute.</param>
         /// <param name="numberOfTries">Number of tries. Default is 3.</param>
-        /// <param name="exceptions">Set of exceptions on which repeat occures. If null retry will appear on any exception.</param>
+        /// <param name="delay">Delays between action calls. Default is none.</param>
+        /// <param name="exceptionsTypes">Set of exceptions on which repeat occures. If null retry will appear on any exception.</param>
         public static void Retry(Action action, Int32 numberOfTries = 3, TimeSpan? delay = null, params Type[] exceptionsTypes)
         {
             Flow.Retry<object>(() =>

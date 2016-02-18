@@ -46,6 +46,11 @@ namespace Candy
 #endif
 
 #if NET3_5
+        /// <summary>
+        /// Determines whether one or more bit fields are set in the current instance.
+        /// <param name="target">Enum.</param>
+        /// <param name="flag">An enumeration value.</param>
+        /// </summary>
         public static Boolean HasFlag(this Enum target, Enum flag)
         {
             if (flag == null)
