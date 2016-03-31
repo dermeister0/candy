@@ -14,6 +14,6 @@ Table of Contents
     check
     extensions
     flow
-    objects
+    simplefunc
     pagination
     security

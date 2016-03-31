@@ -30,6 +30,8 @@ namespace Candy
     /// </summary>
     public static class CollectionsExtensions
     {
+        const int DefaultChunkSize = 1000;
+
         /// <summary>
         /// Sorts the elements of a sequence in ascending or descending order.
         /// </summary>
@@ -88,7 +90,7 @@ namespace Candy
         /// <param name="source">Source list.</param>
         /// <param name="chunkSize">Chunk size.</param>
         /// <returns>Enumeration of iterators.</returns>
-        public static IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(this IEnumerable<T> source, int chunkSize = 1000)
+        public static IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(this IEnumerable<T> source, int chunkSize = DefaultChunkSize)
         {
             while (source.Any())
             {
@@ -104,7 +106,7 @@ namespace Candy
         /// <param name="source">Source list.</param>
         /// <param name="chunkSize">Chunk size.</param>
         /// <returns>Enumeration of queryables.</returns>
-        public static IEnumerable<IQueryable<T>> ChunkSelectRange<T>(this IQueryable<T> source, int chunkSize = 1000)
+        public static IEnumerable<IQueryable<T>> ChunkSelectRange<T>(this IQueryable<T> source, int chunkSize = DefaultChunkSize)
         {
             long totalNumberOfElements = source.LongCount();
             int currentPosition = 0;
@@ -122,7 +124,7 @@ namespace Candy
         /// <param name="source">Source list.</param>
         /// <param name="chunkSize">Chunk size.</param>
         /// <returns>Items of type T.</returns>
-        public static IEnumerable<T> ChunkSelect<T>(this IEnumerable<T> source, int chunkSize = 1000)
+        public static IEnumerable<T> ChunkSelect<T>(this IEnumerable<T> source, int chunkSize = DefaultChunkSize)
         {
             var currentPosition = 0;
             var subsource = source;
@@ -147,7 +149,7 @@ namespace Candy
         /// <param name="source">Source list.</param>
         /// <param name="chunkSize">Chunk size.</param>
         /// <returns>Items of type T.</returns>
-        public static IEnumerable<T> ChunkSelect<T>(this IQueryable<T> source, int chunkSize = 1000)
+        public static IEnumerable<T> ChunkSelect<T>(this IQueryable<T> source, int chunkSize = DefaultChunkSize)
         {
             var currentPosition = 0;
             var subsource = source;

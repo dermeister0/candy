@@ -15,7 +15,7 @@ namespace Candy
     /// </summary>
     public static class Check
     {
-        #if !PORTABLE
+#if !PORTABLE
         internal const RegexOptions Options = RegexOptions.Singleline | RegexOptions.Compiled;
 #else
         internal const RegexOptions Options = RegexOptions.Singleline;

@@ -599,7 +599,7 @@ namespace Candy
             for (int i = chars.Length - 1; i >= 1; i--)
             {
                 int j = GetNextRandom(i + 1);
-                Objects.Swap(ref chars[i], ref chars[j]);
+                SimpleFunctions.Swap(ref chars[i], ref chars[j]);
             }
         }
 

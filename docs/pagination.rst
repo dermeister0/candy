@@ -8,7 +8,7 @@ PagedEnumerable
 
 .. class:: PagedEnumerable
 
-    The class helps to make paged enumerables. It wraps current page and page size. If not specified default page is first and default page size is 100. If total pages parameter is below or equal 0 it will be automatically populated with `Count()` method.
+    The class helps to make paged enumerables. It wraps current page and page size. If not specified default page is first and default page size is 100. If ``totalPages`` parameter is below or equal zero it will be automatically populated with ``Count()`` method.
 
     .. function:: PagedEnumerable(IEnumerable<T> source, int page, int pageSize, int totalPages)
 
@@ -25,4 +25,4 @@ PagedEnumerable
 
     .. function:: PagedEnumerable<T> Create(IEnumerable<T> pagedSource, int page, int pageSize, int totalPages)
 
-        Creates the instance without any queries. It only fills internal properies.
+        Creates an instance without any queries. It only fills internal properies.

@@ -33,7 +33,7 @@ namespace Candy.Tests
         public void TestSwap()
         {
             int a = 2, b = 5;
-            Objects.Swap(ref a, ref b);
+            SimpleFunctions.Swap(ref a, ref b);
             Assert.That(a, Is.EqualTo(5));
             Assert.That(b, Is.EqualTo(2));
         }
@@ -101,6 +101,14 @@ namespace Candy.Tests
             Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
             stopwatch.Stop();
             Assert.That(stopwatch.ElapsedMilliseconds, Is.GreaterThanOrEqualTo(150));
+        }
+
+        [Test]
+        public void TestDoWithCAS()
+        {
+            int a = 5;
+            SimpleFunctions.DoWithCAS(ref a, v => v * 15);
+            Assert.That(a, Is.EqualTo(75));
         }
     }
 }

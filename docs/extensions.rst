@@ -10,35 +10,35 @@ CollectionsExtensions
 
     Set of extensions related to collections (`IEnumerable`, `IList`, etc).
 
-    .. function:: static IOrderedEnumerable<TSource> Sort<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, SortOrder sortOrder)
+    .. function:: static IOrderedEnumerable<TSource> Sort<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, SortOrder sortOrder)
 
-        Sort extension to order enumerable by asc or desc.
+        ***extension** Sort extension to order enumerable by asc or desc order. ``Ask`` and ``Desc`` are ``SortOrder`` enum members.
 
-    .. function:: static Common.PagedEnumerable<T> GetPaged<T>(this IEnumerable<T> source, int page, int pageSize)
+    .. function:: static Common.PagedEnumerable<T> GetPaged<T>(IEnumerable<T> source, int page, int pageSize)
 
-        Get paged enumeration. See `Common.PagedEnumerable` class for more reference.
+        ***extension** Get paged enumeration. See ``PagedEnumerable`` class for more reference.
 
     .. function:: IEnumerable<IEnumerable<T>> ChunkSelectRange<T>(IEnumerable<T> source, int chunkSize)
 
-    Breaks a list of items into chunks of a specific size and yeilds T items.
+        ***extension** Breaks a list of items into chunks of a specific size and yeilds T items. Default ``chunkSize`` is 1000.
 
     .. function:: IEnumerable<T> ChunkSelect<T>(IEnumerable<T> source, int chunkSize)
 
-    Breaks a list of items into chunks of a specific size and yeilds T items.
+        ***extension** Breaks a list of items into chunks of a specific size and yeilds T items. Default ``chunkSize`` is 1000.
 
     .. function:: void Walk<T>(IEnumerable<T> target, Action<T> action)
 
-        Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
+        **(extension)** Implements foreach loop with Action. Action does something with each item of collection. Since there is a tacit agreement that linq extensions should not change collection items it is implemented as helper method. Default chunk size is 1000. For example you can use it like this:
 
             .. code-block:: c#
 
                 foreach (var user in Users) {
-                    user.FirstName = StringHelpers.Capitalize(user.FirstName);
+                    user.FirstName = StringExtensions.Capitalize(user.FirstName);
                 }
 
                 // can be replaced
 
-                Users.Walk(u => { u.FirstName = StringHelpers.Capitalize(u.FirstName) });
+                Users.Walk(u => { u.FirstName = StringExtensions.Capitalize(u.FirstName) });
 
 DictionaryExtensions
 --------------------
@@ -49,7 +49,7 @@ DictionaryExtensions
 
     .. function:: TValue GetValueDefault<TKey, TValue>(IDictionary<TKey, TValue> target, TKey key, TValue defaultValue)
 
-    Tried to get the value by key. If key is not presented to dictionary returns `defaultValue`.
+    ***extension** Tries to get the value by key. If key is not presented to dictionary returns ``defaultValue``.
 
 EnumExtensions
 --------------
@@ -85,15 +85,15 @@ StringExtensions
 
     .. function:: Boolean String.IsEmpty()
 
-        Returns true if string is empty. Without Candy you have to write ``String.IsNullOrEmpty(str)``.
+        ***extension** Returns true if string is empty. Without Candy you have to write ``String.IsNullOrEmpty(str)``.
 
     .. function:: Boolean String.IsNotEmpty()
 
-        Returns true if string is not empty. Without Candy you have to write ``!String.IsNullOrEmpty(str)``.
+        ***extension** Returns true if string is not empty. Without Candy you have to write ``!String.IsNullOrEmpty(str)``.
 
     .. function:: String String.NullSafe()
 
-        Returns empty string if target string is empty or string itself. It is the same as ``(mystring ?? "")``.
+        ***extension** Returns empty string if target string is empty or string itself. It is the same as ``(mystring ?? "")``.
 
     .. function:: string ConvertToSnakeCase(string target)
 
@@ -151,7 +151,7 @@ MailExtensions
 
     .. function:: void Save(MailMessage message, string fileName)
 
-        Saves MailMessage to file. There are no standard methods in .NET to save MailMessage to file. The only way to do that is to define ``mailSettings`` in config. This methods uses reflection to call internal methods to save message to file.
+        ***extension** Saves MailMessage to file. There are no standard methods in .NET to save MailMessage to file. The only way to do that is to define ``mailSettings`` in config. This methods uses reflection to call internal methods to save message to file.
 
 DateTimeExtensions
 ------------------

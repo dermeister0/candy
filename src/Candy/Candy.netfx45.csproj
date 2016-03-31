@@ -43,7 +43,7 @@
     <Compile Include="PagedEnumerable.cs" />
     <Compile Include="CollectionsExtensions.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="Objects.cs" />
+    <Compile Include="SimpleFunctions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="MailExtensions.cs" />
     <Compile Include="StringExtensions.cs" />

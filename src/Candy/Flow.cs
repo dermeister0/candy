@@ -6,7 +6,6 @@
 namespace Candy
 {
     using System;
-    using System.Threading;
 #if PORTABLE
     using System.Reflection;
 #endif
@@ -98,11 +97,11 @@ namespace Candy
             where TEventArgs : EventArgs
         {
 #if NET4_5 || MONO
-            var temp = Volatile.Read(ref eventDelegate);
+            var temp = System.Threading.Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;
     #if !PORTABLE
-            Thread.MemoryBarrier();
+            System.Threading.Thread.MemoryBarrier();
     #endif
 #endif
             if (temp != null)
