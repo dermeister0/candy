@@ -1,5 +1,5 @@
-Flow
-====
+FlowsUtils
+==========
 
 Contains method to affect application flow. 
 
@@ -8,7 +8,7 @@ Contains method to affect application flow.
     
     Every call of action retries up to numberOfTries times if any subclass of exceptions occures. There is a delay between calls.
 
-.. function:: void Raise<TEventArgs>(TEventArgs e, object sender, ref EventHandler<TEventArgs> eventDelegate)
+.. function:: void Raise<TEventArgs>(object sender, TEventArgs e, ref EventHandler<TEventArgs> eventDelegate)
 
     Helps to raise event handlers.
 
@@ -21,4 +21,4 @@ Contains method to affect application flow.
                 TestEvent(sender, eventArgs);
 
             // with Candy
-            EventHelpers.Raise(eventArgs, sender, ref TestEvent);
+            FlowsUtils.Raise(eventArgs, sender, ref TestEvent);

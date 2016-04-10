@@ -13,7 +13,7 @@ namespace Candy
     /// <summary>
     /// Shortcuts for hash generation to string.
     /// </summary>
-    public static class Security
+    public static class SecurityUtils
     {
 #if !PORTABLE
         /// <summary>
@@ -25,11 +25,14 @@ namespace Candy
         public static String MD5(String target)
         {
             Byte[] bytes = Encoding.UTF8.GetBytes(target);
-            bytes = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(bytes);
+            using (var cryptoServiceProvider = new System.Security.Cryptography.MD5CryptoServiceProvider())
+            {
+                bytes = cryptoServiceProvider.ComputeHash(bytes);
+            }
             var sb = new StringBuilder();
             foreach (Byte b in bytes)
             {
-                sb.Append(b.ToString("x2", CultureInfo.InvariantCulture).ToLowerInvariant());
+                sb.Append(b.ToString("x2", CultureInfo.InvariantCulture).ToUpperInvariant());
             }
             return sb.ToString();
         }
@@ -39,11 +42,13 @@ namespace Candy
         /// </summary>
         /// <param name="target">String to be hashed.</param>
         /// <returns>String's SHA1 hash.</returns>
-        public static String SHA1(String target)
+        public static String Sha1(String target)
         {
-            var hasher = new System.Security.Cryptography.SHA1Managed();
-            var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
-            return BitConverter.ToString(data).Replace("-", String.Empty);
+            using (var hasher = new System.Security.Cryptography.SHA1Managed())
+            {
+                var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
+                return BitConverter.ToString(data).Replace("-", String.Empty);
+            }
         }
 
         /// <summary>
@@ -51,11 +56,13 @@ namespace Candy
         /// </summary>
         /// <param name="target">String to be hashed.</param>
         /// <returns>String's SHA256 hash.</returns>
-        public static String SHA256(String target)
+        public static String Sha256(String target)
         {
-            var hasher = new System.Security.Cryptography.SHA256Managed();
-            var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
-            return BitConverter.ToString(data).Replace("-", String.Empty);
+            using (var hasher = new System.Security.Cryptography.SHA256Managed())
+            {
+                var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
+                return BitConverter.ToString(data).Replace("-", String.Empty);
+            }
         }
 
         /// <summary>
@@ -63,11 +70,13 @@ namespace Candy
         /// </summary>
         /// <param name="target">String to be hashed.</param>
         /// <returns>String's SHA384 hash.</returns>
-        public static String SHA384(String target)
+        public static String Sha384(String target)
         {
-            var hasher = new System.Security.Cryptography.SHA384Managed();
-            var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
-            return BitConverter.ToString(data).Replace("-", String.Empty);
+            using (var hasher = new System.Security.Cryptography.SHA384Managed())
+            {
+                var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
+                return BitConverter.ToString(data).Replace("-", String.Empty);
+            }
         }
 
         /// <summary>
@@ -75,11 +84,13 @@ namespace Candy
         /// </summary>
         /// <param name="target">String to be hashed.</param>
         /// <returns>String's SHA512 hash.</returns>
-        public static String SHA512(String target)
+        public static String Sha512(String target)
         {
-            var hasher = new System.Security.Cryptography.SHA512Managed();
-            var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
-            return BitConverter.ToString(data).Replace("-", String.Empty);
+            using (var hasher = new System.Security.Cryptography.SHA512Managed())
+            {
+                var data = hasher.ComputeHash(Encoding.UTF8.GetBytes(target));
+                return BitConverter.ToString(data).Replace("-", String.Empty);
+            }
         }
 #endif
 
@@ -136,7 +147,7 @@ namespace Candy
         /// <param name="target">String to be hashed.</param>
         /// <returns>String's CRC32 hash.</returns>
         [CLSCompliant(false)]
-        public static UInt64 CRC32(String target)
+        public static UInt64 Crc32(String target)
         {
             unchecked
             {

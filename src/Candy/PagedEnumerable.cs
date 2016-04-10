@@ -65,7 +65,6 @@ namespace Candy
         /// <summary>
         /// Creates paged enumerable from source and query source list by page and pageSize.
         /// </summary>
-        /// <typeparam name="T">Source type.</typeparam>
         /// <param name="source">Enumerable.</param>
         /// <param name="page">Current page. Default is 1.</param>
         /// <param name="pageSize">Page size. Default is 100.</param>
@@ -76,9 +75,9 @@ namespace Candy
             Int32 pageSize = DefaultPageSize,
             Int32 totalPages = -1)
         {
-            Check.IsNotNull(source, "source");
-            Check.IsNotNegativeOrZero(page, "page");
-            Check.IsNotNegativeOrZero(pageSize, "pageSize");
+            ValidateUtils.IsNotNull(source, "source");
+            ValidateUtils.IsNotNegativeOrZero(page, "page");
+            ValidateUtils.IsNotNegativeOrZero(pageSize, "pageSize");
 
             this.currentPage = page;
             this.pageSize = pageSize;
@@ -89,7 +88,6 @@ namespace Candy
         /// <summary>
         /// Creates the instance without any queries. It only fills internal properies.
         /// </summary>
-        /// <typeparam name="T">Source type.</typeparam>
         /// <param name="source">Enumerable.</param>
         /// <param name="page">Page to select. Default is first.</param>
         /// <param name="pageSize">Page size. Default is 100.</param>
@@ -100,9 +98,9 @@ namespace Candy
             Int32 pageSize = DefaultPageSize,
             Int32 totalPages = -1)
         {
-            Check.IsNotNull(source, "source");
-            Check.IsNotNegativeOrZero(page, "page");
-            Check.IsNotNegativeOrZero(pageSize, "pageSize");
+            ValidateUtils.IsNotNull(source, "source");
+            ValidateUtils.IsNotNegativeOrZero(page, "page");
+            ValidateUtils.IsNotNegativeOrZero(pageSize, "pageSize");
 
             return new PagedEnumerable<T>()
             {

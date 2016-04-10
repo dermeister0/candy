@@ -1,0 +1,2 @@
+- Update FlowsUtils.Retry method (https://msdn.microsoft.com/en-us/library/hh680934(v=pandp.50).aspx)
+- Add ability to hash to string like "sha256%125AB..."

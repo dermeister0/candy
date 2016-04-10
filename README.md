@@ -20,7 +20,7 @@ Overview
 Here are some examples to use. Calculate SHA256 hash for password:
 
 ```cs
-Security.SHA256("mypassword");
+Security.Sha256("mypassword");
 ```
 
 Set of functions to parse or get value or default:

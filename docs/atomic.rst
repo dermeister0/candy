@@ -1,15 +1,15 @@
-SimpleFunctions
-===============
+AtomicUtils
+===========
 
 Methods to work with plain CLR objects.
 
 .. function:: static void Swap<T>(ref T item1, ref T item2)
 
-    Swaps two variables by their referencies.
+    Swaps values of two variables.
 
     .. code-block:: c#
 
-        // without Candy, new variable needed
+        // without Candy, temp variable needed
         int a = 2, b = 5;
         int tmp = a;
         a = b;
@@ -17,11 +17,11 @@ Methods to work with plain CLR objects.
 
         // with Candy
         int a = 2, b = 5;
-        Objects.Swap(ref a, ref b);
+        AtomicUtils.Swap(ref a, ref b);
 
 .. function:: static void SafeSwap<T>(ref T item1, ref T item2)
 
-    Swaps two variables by their referencies. Thread safe.
+    Swaps values of two variables. Thread safe.
 
 .. function:: public static void DoWithCAS<T>(ref T location, Func<T, T> func)
 
@@ -31,5 +31,5 @@ Methods to work with plain CLR objects.
 
             public static void InterlockedMultiplyInPlace(ref int x, int y)
             {
-                DoWithCAS(ref x, t => t * y);
+                AtomicUtils.DoWithCAS(ref x, t => t * y);
             }

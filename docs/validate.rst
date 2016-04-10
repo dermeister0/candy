@@ -1,19 +1,19 @@
-Check
-=====
+ValidateUtils
+=============
 
-Provides common patterns to validate. Contains set of methods to write less code to defined method pre-conditions. Example:
+Provides common patterns to validate values. Contains set of methods to write less code to defined method pre-conditions. Example:
 
     .. code-block:: c#
 
         void CreateUser(User user, int score)
         {
-            Check.IsNotNull(user, "user");
-            Check.IsNotNegative(score, "score");
+            ValidateUtils.IsNotNull(user, "user");
+            ValidateUtils.IsNotNegative(score, "score");
         }
 
 There are methods implemented: ``IsNotEmpty``, ``IsNotOutOfLength``, ``IsNotNull``, ``IsNotNegative``, ``IsNotNegativeOrZero``, ``IsNotInPast``, ``IsNotInFuture``, ``IsNotInvalidEmail``.
 
-.. class:: Check
+.. class:: ValidateUtils
 
     Contains common validation regexp patterns.
 

@@ -14,18 +14,29 @@ namespace Candy.Tests
     [TestFixture]
     public class CommonTest
     {
+        private event EventHandler<EventArgs> EventArgsTestEvent;
+
         private event EventHandler<EventArgs> TestEvent;
 
         [Test]
-        public void TestEventCall()
+        public void EventArgsTestEventCall()
         {
-            int sender = 10;
+            int a = 10;
             EventArgs eventArgs = new EventArgs();
-            Flow.Raise(eventArgs, sender, ref TestEvent);
-
-            if (TestEvent != null)
+            EventHandler<EventArgs> testDelegate = (sender, args) =>
             {
-                TestEvent(sender, eventArgs);
+                a = 20;
+            };
+
+            try
+            {
+                EventArgsTestEvent += testDelegate;
+                Assert.DoesNotThrow(() => { FlowsUtils.Raise(this, eventArgs, ref EventArgsTestEvent); });
+                Assert.That(a == 20, Is.True, "TestEvent was not called");
+            }
+            finally
+            {
+                EventArgsTestEvent -= testDelegate;
             }
         }
 
@@ -33,7 +44,7 @@ namespace Candy.Tests
         public void TestSwap()
         {
             int a = 2, b = 5;
-            SimpleFunctions.Swap(ref a, ref b);
+            AtomicUtils.Swap(ref a, ref b);
             Assert.That(a, Is.EqualTo(5));
             Assert.That(b, Is.EqualTo(2));
         }
@@ -89,16 +100,16 @@ namespace Candy.Tests
         [Test]
         public void TestFlowRepeat()
         {
-            Flow.Retry<Int32>(CustomMethodReturn);
-            Flow.Retry<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
+            FlowsUtils.Retry<Int32>(CustomMethodReturn);
+            FlowsUtils.Retry<Int32>(CustomMethodReturn, Int32.MaxValue, TimeSpan.MaxValue);
 
-            Assert.DoesNotThrow(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException));
-            Assert.Throws<CustomException>(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(InvalidOperationException) }));
-            Assert.DoesNotThrow(() => Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(CustomException) }));
+            Assert.DoesNotThrow(() => FlowsUtils.Retry<Int32>(CustomMethodReturnWithCustomException));
+            Assert.Throws<CustomException>(() => FlowsUtils.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(InvalidOperationException) }));
+            Assert.DoesNotThrow(() => FlowsUtils.Retry<Int32>(CustomMethodReturnWithCustomException, 3, null, new[] { typeof(CustomException) }));
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Flow.Retry<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
+            FlowsUtils.Retry<Int32>(CustomMethodReturnWithCustomException, 3, TimeSpan.FromMilliseconds(50), new[] { typeof(CustomException) });
             stopwatch.Stop();
             Assert.That(stopwatch.ElapsedMilliseconds, Is.GreaterThanOrEqualTo(150));
         }
@@ -107,7 +118,7 @@ namespace Candy.Tests
         public void TestDoWithCAS()
         {
             int a = 5;
-            SimpleFunctions.DoWithCAS(ref a, v => v * 15);
+            AtomicUtils.DoWithCAS(ref a, v => v * 15);
             Assert.That(a, Is.EqualTo(75));
         }
     }

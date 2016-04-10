@@ -13,7 +13,7 @@ namespace Candy
     /// <summary>
     /// Contains various check methods. If condition is false it generates exception.
     /// </summary>
-    public static class Check
+    public static class ValidateUtils
     {
 #if !PORTABLE
         internal const RegexOptions Options = RegexOptions.Singleline | RegexOptions.Compiled;
@@ -58,7 +58,7 @@ namespace Candy
         [DebuggerStepThrough]
         public static void IsNotEmpty(String argument, String argumentName)
         {
-            if (StringExtensions.IsNullOrWhiteSpace(argument))
+            if (StringUtils.IsNullOrWhiteSpace(argument))
             {
                 throw new ArgumentException("\"{0}\" cannot be empty string.".FormatWith(argumentName), argumentName);
             }
@@ -73,7 +73,7 @@ namespace Candy
         [DebuggerStepThrough]
         public static void IsNotOutOfLength(String argument, Int32 length, String argumentName)
         {
-            if (argument.Trim().Length > length)
+            if (argument.Length > length)
             {
                 throw new ArgumentException("\"{0}\" cannot be more than {1} character.".FormatWith(argumentName, length), argumentName);
             }
@@ -255,7 +255,7 @@ namespace Candy
         /// <param name="date">Date to compare.</param>
         /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
-        public static void IsNotInFuture(DateTime argument, String argumentName, DateTime date)
+        public static void IsNotInFuture(DateTime argument, DateTime date, String argumentName)
         {
             if (argument > date)
             {
@@ -333,7 +333,7 @@ namespace Candy
         {
             IsNotEmpty(argument, argumentName);
 
-            if (EmailExpression.IsMatch(argument))
+            if (EmailExpression.IsMatch(argument) == false)
             {
                 throw new ArgumentException("\"{0}\" is not a valid email address.".FormatWith(argumentName), argumentName);
             }

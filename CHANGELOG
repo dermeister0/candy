@@ -1,3 +1,13 @@
+0.5.0
+[+] Big refactoring, again.
+[+] Support .NET 4.6.
+[*] Renamed SimpleFunctions to AtomicUtils.
+[*] Split extensions methods and utils methods.
+[-] Removed PasswordGenerator class.
+[*] Introduce *Utils classes.
+[*] Little docs fixes and methods signatures changes.
+[*] Moved nuget to /tools/nuget folder.
+
 0.3.0
 [+] Big refactoring.
 [+] Added Domain.NotFoundException .

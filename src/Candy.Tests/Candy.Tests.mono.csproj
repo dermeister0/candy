@@ -41,7 +41,8 @@
   <ItemGroup>
     <Compile Include="CommonTest.cs" />
     <Compile Include="ExtensionsTest.cs" />
-    <Compile Include="ValidationTest.cs" />
+    <Compile Include="StringTests.cs" />
+    <Compile Include="ValidateTest.cs" />
     <Compile Include="SecurityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

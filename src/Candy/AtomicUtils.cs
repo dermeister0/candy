@@ -12,12 +12,10 @@ namespace Candy
     /// <summary>
     /// Common helpers related to various classes of .NET .
     /// </summary>
-    public static class SimpleFunctions
+    public static class AtomicUtils
     {
-        private static object lockObject = new object();
-
         /// <summary>
-        /// Swaps two variables by references.
+        /// Swaps values of two variables.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="item1">Variable 1.</param>
@@ -32,10 +30,12 @@ namespace Candy
             item2 = tmp;
         }
 
+        private static readonly object LockObject = new object();
+
         /// <summary>
-        /// Swaps two variables by references. Thread safe implementation.
+        /// Swaps values of two variables. Thread safe implementation.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Variables type.</typeparam>
         /// <param name="item1">Variable 1.</param>
         /// <param name="item2">Variable 2.</param>
 #if !NET3_5 && !NET4_0
@@ -43,7 +43,7 @@ namespace Candy
 #endif
         public static void SafeSwap<T>(ref T item1, ref T item2)
         {
-            lock (lockObject)
+            lock (LockObject)
             {
                 T tmp = item1;
                 item1 = item2;
@@ -68,30 +68,31 @@ namespace Candy
             {
                 temp = location;
                 replace = func(temp);
-            } while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
+            }
+            while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
         }
 
         /// <summary>
         /// Thread safe implementation CAS (Compare-And-Swap).
         /// Get the location variable from memory, perform an action on it and replace.
         /// </summary>
-        /// <typeparam name="T">Input and output variable type.</typeparam>
         /// <param name="location">Input and output variable.</param>
         /// <param name="func">Function to perform action on variable.</param>
         public static void DoWithCAS(ref int location, Func<int, int> func)
         {
             int temp, replace;
-            do {
+            do
+            {
                 temp = location;
                 replace = func(temp);
-            } while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
+            }
+            while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
         }
 
         /// <summary>
         /// Thread safe implementation CAS (Compare-And-Swap).
         /// Get the location variable from memory, perform an action on it and replace.
         /// </summary>
-        /// <typeparam name="T">Input and output variable type.</typeparam>
         /// <param name="location">Input and output variable.</param>
         /// <param name="func">Function to perform action on variable.</param>
         public static void DoWithCAS(ref double location, Func<double, double> func)
@@ -101,7 +102,8 @@ namespace Candy
             {
                 temp = location;
                 replace = func(temp);
-            } while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
+            }
+            while (Interlocked.CompareExchange(ref location, replace, temp) != temp);
         }
 
         #endregion

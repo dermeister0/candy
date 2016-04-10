@@ -13,9 +13,9 @@ namespace Candy
     /// <summary>
     /// Provides methods to control execution flow.
     /// </summary>
-    public class Flow
+    public class FlowsUtils
     {
-        private static Type[] anyExcepton = new Type[] { typeof(Exception) };
+        private static readonly Type[] AnyExcepton = new Type[] { typeof(Exception) };
 
         /// <summary>
         /// Every call of action retries up to numberOfTries times if any subclass of exceptions
@@ -30,7 +30,7 @@ namespace Candy
         {
             if (exceptionsTypes == null || exceptionsTypes.Length == 0)
             {
-                exceptionsTypes = Flow.anyExcepton;
+                exceptionsTypes = FlowsUtils.AnyExcepton;
             }
             if (delay == null)
             {
@@ -83,26 +83,33 @@ namespace Candy
         /// <param name="exceptionsTypes">Set of exceptions on which repeat occures. If null retry will appear on any exception.</param>
         public static void Retry(Action action, Int32 numberOfTries = 3, TimeSpan? delay = null, params Type[] exceptionsTypes)
         {
-            Flow.Retry<object>(() =>
-            {
-                action();
-                return null;
-            });
+            FlowsUtils.Retry<object>(
+                () =>
+                {
+                    action();
+                    return null;
+                },
+                numberOfTries,
+                delay,
+                exceptionsTypes
+            );
         }
 
         /// <summary>
         /// It is null-safe and thread-safe way to raise event.
         /// </summary>
-        public static void Raise<TEventArgs>(TEventArgs e, object sender, ref EventHandler<TEventArgs> eventDelegate)
+        public static void Raise<TEventArgs>(object sender, TEventArgs e, ref EventHandler<TEventArgs> eventDelegate)
+#if NET4_0 || NET3_5
             where TEventArgs : EventArgs
+#endif
         {
 #if NET4_5 || MONO
             var temp = System.Threading.Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;
-    #if !PORTABLE
+#if !PORTABLE
             System.Threading.Thread.MemoryBarrier();
-    #endif
+#endif
 #endif
             if (temp != null)
             {

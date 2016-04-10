@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Candy")]
-[assembly: AssemblyDescription("Useful .NET extensions")]
+[assembly: AssemblyDescription("Useful .NET extensions and utils.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Candy")]
@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 [assembly: Guid("242079c0-d138-46bc-b29d-aa423b021dbc")]
 #endif
 
-[assembly: AssemblyVersion("0.4.0.0")]
-[assembly: AssemblyFileVersion("0.4.0.0")]
+[assembly: AssemblyVersion("0.5.0.0")]
+[assembly: AssemblyFileVersion("0.5.0.0")]
 
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1634:FileHeaderMustShowCopyright", Justification = "Reviewed.")]

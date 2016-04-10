@@ -30,7 +30,7 @@ namespace Candy
     /// </summary>
     public static class CollectionsExtensions
     {
-        const int DefaultChunkSize = 1000;
+        private const int DefaultChunkSize = 1000;
 
         /// <summary>
         /// Sorts the elements of a sequence in ascending or descending order.
@@ -41,7 +41,7 @@ namespace Candy
         /// <param name="keySelector">A function to extract a key from an element.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>An System.Linq.IOrderedEnumerable whose elements are sorted according to a key.</returns>
-        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> Order<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             SortOrder sortOrder)
@@ -59,7 +59,7 @@ namespace Candy
         /// <param name="comparer">An System.Collections.Generic.IComparer to compare keys.</param>
         /// <param name="sortOrder">Sort order.</param>
         /// <returns>An System.Linq.IOrderedEnumerable whose elements are sorted according to a key.</returns>
-        public static IOrderedEnumerable<TSource> Sort<TSource, TKey>(
+        public static IOrderedEnumerable<TSource> Order<TSource, TKey>(
             this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer,
@@ -119,7 +119,7 @@ namespace Candy
         }
 
         /// <summary>
-        /// Breaks a list of items into chunks of a specific size and yeilds T items.
+        /// Breaks a list of items into chunks of a specific size and yields T items.
         /// </summary>
         /// <param name="source">Source list.</param>
         /// <param name="chunkSize">Chunk size.</param>
@@ -151,15 +151,14 @@ namespace Candy
         /// <returns>Items of type T.</returns>
         public static IEnumerable<T> ChunkSelect<T>(this IQueryable<T> source, int chunkSize = DefaultChunkSize)
         {
-            var currentPosition = 0;
-            var subsource = source;
+            int currentPosition = 0;
             Boolean hasRecords = false;
             do
             {
-                subsource = source.Skip(currentPosition).Take(chunkSize);
+                source = source.Skip(currentPosition).Take(chunkSize);
                 hasRecords = false;
                 // actual query is here
-                foreach (var item in subsource)
+                foreach (var item in source)
                 {
                     hasRecords = true;
                     yield return item;

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candy.netfx45", "Candy\Candy.netfx45.csproj", "{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candy.netfx46", "Candy\Candy.netfx46.csproj", "{6BADE250-2B0A-4B97-BE7D-AB11FCC94148}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candy.Tests.netfx45", "Candy.Tests\Candy.Tests.netfx45.csproj", "{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Candy.Tests.netfx46", "Candy.Tests\Candy.Tests.netfx46.csproj", "{566D96DC-A7AD-42B8-9B76-71F8A3F6C8EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,9 +5,9 @@
 
 namespace Candy.Tests
 {
+    using System;
     using System.Collections.Generic;
     using NUnit.Framework;
-    using System;
 
     [TestFixture]
     public class ExtensionsTest
@@ -27,13 +27,7 @@ namespace Candy.Tests
             Assert.That(dict.GetValueDefault(5, "default"), Is.EqualTo("default"));
             Assert.That(dict.GetValueDefault(1, "abc"), Is.EqualTo("abc"));
         }
-
-        [Test]
-        public void TestSnakeCase()
-        {
-            Assert.That(StringExtensions.ConvertToSnakeCase("MyTestMethod"), Is.EqualTo("My_Test_Method"));
-        }
-
+        
         private enum TestEnum
         {
             ValueA,
@@ -44,29 +38,29 @@ namespace Candy.Tests
         [Test]
         public void TestDefaultParse()
         {
-            Assert.That(StringExtensions.ParseDefault("incorrect", false), Is.False);
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 'a'), Is.EqualTo('a'));
-            Assert.That(StringExtensions.ParseDefault("incorrect", DateTime.MaxValue), Is.EqualTo(DateTime.MaxValue));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1.2), Is.EqualTo(1.2));
-            Assert.That(StringExtensions.ParseDefault<TestEnum>("incorrect", TestEnum.ValueA), Is.EqualTo(TestEnum.ValueA));
-            Assert.That(StringExtensions.ParseDefault<TestEnum>("ValueC", TestEnum.ValueA), Is.EqualTo(TestEnum.ValueC));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", -1), Is.EqualTo(-1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1.2f), Is.EqualTo(1.2f));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 2), Is.EqualTo(2));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
-            Assert.That(StringExtensions.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", false), Is.False);
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 'a'), Is.EqualTo('a'));
+            Assert.That(StringUtils.ParseDefault("incorrect", DateTime.MaxValue), Is.EqualTo(DateTime.MaxValue));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1.2), Is.EqualTo(1.2));
+            Assert.That(StringUtils.ParseDefault<TestEnum>("incorrect", TestEnum.ValueA), Is.EqualTo(TestEnum.ValueA));
+            Assert.That(StringUtils.ParseDefault<TestEnum>("ValueC", TestEnum.ValueA), Is.EqualTo(TestEnum.ValueC));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", -1), Is.EqualTo(-1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1.2f), Is.EqualTo(1.2f));
+            Assert.That(StringUtils.ParseDefault("incorrect", 2), Is.EqualTo(2));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
+            Assert.That(StringUtils.ParseDefault("incorrect", 1), Is.EqualTo(1));
         }
 
         [Test]
-        public void TestStringSafeSubstrng()
+        public void TestStringSafeSubstring()
         {
-            Assert.That(StringExtensions.SafeSubstring("123", 1, 3), Is.EqualTo("23"));
-            Assert.That(StringExtensions.SafeSubstring("123", 1, 6), Is.EqualTo("23"));
+            Assert.That(StringUtils.SafeSubstring("123", 1, 3), Is.EqualTo("23"));
+            Assert.That(StringUtils.SafeSubstring("123", 1, 6), Is.EqualTo("23"));
         }
 
         [Test]
