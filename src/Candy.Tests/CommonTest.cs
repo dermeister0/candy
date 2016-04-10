@@ -16,8 +16,6 @@ namespace Candy.Tests
     {
         private event EventHandler<EventArgs> EventArgsTestEvent;
 
-        private event EventHandler<EventArgs> TestEvent;
-
         [Test]
         public void EventArgsTestEventCall()
         {
@@ -31,13 +29,57 @@ namespace Candy.Tests
             try
             {
                 EventArgsTestEvent += testDelegate;
-                Assert.DoesNotThrow(() => { FlowsUtils.Raise(this, eventArgs, ref EventArgsTestEvent); });
-                Assert.That(a == 20, Is.True, "TestEvent was not called");
+                Assert.DoesNotThrow(() => { FlowsUtils.Raise(this, eventArgs, ref EventArgsTestEvent); }, "Raise error");
+                Assert.That(a == 20, Is.True, "testDelegate with Raise was not called");
+                a = 10;
+                Assert.DoesNotThrow(() => { FlowsUtils.RaiseAll(this, eventArgs, ref EventArgsTestEvent); }, "RaiseAll error");
+                Assert.That(a == 20, Is.True, "testDelegate with RaiseAll was not called");
             }
             finally
             {
                 EventArgsTestEvent -= testDelegate;
             }
+        }
+
+        [Test]
+        public void EventArgsTestEventCallWithException()
+        {
+            int a = 10;
+            EventArgs eventArgs = new EventArgs();
+            EventHandler<EventArgs> testDelegate = (sender, args) =>
+            {
+                a = 20;
+            };
+            EventHandler<EventArgs> testDelegate2 = (sender, args) =>
+            {
+                a = 30;
+                throw new Exception("test");
+            };
+
+            try
+            {
+                EventArgsTestEvent += testDelegate;
+                EventArgsTestEvent += testDelegate2;
+#if !NET3_5
+                Assert.Throws(Is.TypeOf<AggregateException>(), () => { FlowsUtils.RaiseAll(this, eventArgs, ref EventArgsTestEvent); });
+#else
+                Assert.Throws(Is.TypeOf<Exception>(), () => { FlowsUtils.RaiseAll(this, eventArgs, ref EventArgsTestEvent); });
+#endif
+                Assert.That(a == 30, Is.True, "testDelegate2 was not called");
+            }
+            finally
+            {
+                EventArgsTestEvent -= testDelegate;
+                EventArgsTestEvent -= testDelegate2;
+            }
+        }
+
+        [Test]
+        public void EventArgsTestEventCallWithNull()
+        {
+            EventArgs eventArgs = new EventArgs();
+            Assert.DoesNotThrow(() => { FlowsUtils.Raise(this, eventArgs, ref EventArgsTestEvent); });
+            Assert.DoesNotThrow(() => { FlowsUtils.RaiseAll(this, eventArgs, ref EventArgsTestEvent); });
         }
 
         [Test]

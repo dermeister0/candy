@@ -6,6 +6,7 @@
 namespace Candy
 {
     using System;
+    using System.Collections.Generic;
 #if PORTABLE
     using System.Reflection;
 #endif
@@ -107,13 +108,62 @@ namespace Candy
             var temp = System.Threading.Volatile.Read(ref eventDelegate);
 #else
             var temp = eventDelegate;
-#if !PORTABLE
+    #if !PORTABLE
             System.Threading.Thread.MemoryBarrier();
-#endif
+    #endif
 #endif
             if (temp != null)
             {
                 temp(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// It is null-safe and thread-safe way to raise event. The method calls every handler related to event.
+        /// If any handler throws an error the AggregateException will be thrown.
+        /// </summary>
+        public static void RaiseAll<TEventArgs>(object sender, TEventArgs e, ref EventHandler<TEventArgs> eventDelegate)
+#if NET4_0 || NET3_5
+            where TEventArgs : EventArgs
+#endif
+        {
+#if NET4_5 || MONO
+            var temp = System.Threading.Volatile.Read(ref eventDelegate);
+#else
+            var temp = eventDelegate;
+    #if !PORTABLE
+            System.Threading.Thread.MemoryBarrier();
+    #endif
+#endif
+            if (temp == null)
+            {
+                return;
+            }
+
+            var exceptions = new List<Exception>();
+            foreach (var handler in temp.GetInvocationList())
+            {
+                try
+                {
+                    handler.DynamicInvoke(sender, e);
+                }
+                catch (System.Reflection.TargetInvocationException ex)
+                {
+                    exceptions.Add(ex.InnerException);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+
+            if (exceptions.Count > 0)
+            {
+#if !NET3_5
+                throw new AggregateException(exceptions);
+#else
+                throw exceptions[0];
+#endif
             }
         }
     }

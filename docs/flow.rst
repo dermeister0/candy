@@ -22,3 +22,7 @@ Contains method to affect application flow.
 
             // with Candy
             FlowsUtils.Raise(eventArgs, sender, ref TestEvent);
+
+.. function:: void RaiseAll<TEventArgs>(object sender, TEventArgs e, ref EventHandler<TEventArgs> eventDelegate)
+
+    Helps to raise event for all handlers. If any exception would occure the `AggregateException` will be thrown. In case of .NET 3.5 only first exception will be thrown.
